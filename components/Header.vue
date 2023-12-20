@@ -1,11 +1,11 @@
 <script setup>
     import { BRAND_NAME } from '@/app.constants'
-import NavLink from './UI/NavLink.vue';
+    import NavLink from './UI/NavLink.vue';
 
     const props = defineProps({
         isLoggedIn: {
             type: Boolean,
-            default: false
+            default: true
         }
     })
 </script>
@@ -25,7 +25,7 @@ import NavLink from './UI/NavLink.vue';
             <NavLink v-if="props.isLoggedIn" link="/profile" icon="solar:user-circle-linear" text="Профиль"/>
             <NavLink v-if="props.isLoggedIn" link="/logout" icon="solar:logout-3-linear" text="Выйти" color="text-red-500" hover="text-red-400"/>
 
-            <NavLink link="/login" icon="solar:login-3-outline" text="Войти"/>
+            <NavLink v-if="!props.isLoggedIn" link="/login" icon="solar:login-3-outline" text="Войти"/>
         </div>
     </header>
 </template>

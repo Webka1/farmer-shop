@@ -24,7 +24,7 @@
         <Loader/>
     </div>
     <div v-else class="main-content p-20 bg-blue-100">
-        <Header :isLoggedIn="store.isAuth"/>
+        <Header :isLoggedIn="false"/>
         <div class="bg-white p-10 rounded-b-3xl">
             <slot/>
         </div>
