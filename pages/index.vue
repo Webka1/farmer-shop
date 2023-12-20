@@ -1,12 +1,12 @@
 <script setup>
 
-    import { BRAND_NAME } from '~/app.constants';
+    import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
 
     useSeoMeta({
         title: `${BRAND_NAME} - Главная страница`,
         ogTitle: `${BRAND_NAME} - Главная страница`,
-        description: `Заказать фермерские продукты быстро и без сложных действий`,
-        ogDescription: `Заказать фермерские продукты быстро и без сложных действий`
+        description: SITE_DESCRIPTION,
+        ogDescription: SITE_DESCRIPTION
     })
 
 </script>
