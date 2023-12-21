@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  first_name String?
+  last_name String?
+  phone_number String?
+  birthday DateTime?
+  personal_discound Int @default(0) // 0%
+  email String @unique
+  password String
+  is_banned Boolean @default(false)
+  is_deleted Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  banned_at DateTime? @db.DateTime(0)
+  deleted_at DateTime? @db.DateTime(0)
+  sessions Sessions[]
+}
+
+model Sessions {
+  id Int @id @default(autoincrement())
+  ip String?
+  is_active Boolean
+  jwt String?
+  user Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+}

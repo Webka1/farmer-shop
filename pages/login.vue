@@ -1,7 +1,10 @@
 <script setup>
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
+    import { Field, Form, ErrorMessage } from 'vee-validate';
 
+
+    // SEO
     useSeoMeta({
         title: `${BRAND_NAME} - Авторизация`,
         ogTitle: `${BRAND_NAME} - Авторизация`,
@@ -9,66 +12,71 @@
         ogDescription: SITE_DESCRIPTION
     })
 
-    const router = useRouter()
-    const isLoadingStore = useIsLoadingStore()
-    const authStore = useAuthStore()
-
+    // USER INPUTS
     const email = ref('')
     const password = ref('')
 
-    const login = async () => {
-        isLoadingStore.set(true)
 
-        // создам сессию (атворизация крч)
-        await account.createEmailSession(email.value, password.value)
+    // FETCH
+    const is_loading = ref(false)
+    const is_error = ref('')
 
-        // после авторизации получаем данные об аккаунте
-        const response = await account.get()
 
-        // если есть респонс, то в стор добавляем юзера
-        if(response) {
-            authStore.set({
-                email: response.email,
-                name: response.name,
-                status: response.status
+    // LOGIN ACTION
+    async function login(values) {
+        is_loading.value = true
+        try {
+            const request = await $fetch('/api/login', {
+                method: 'POST',
+                body: {
+                    email: email.value,
+                    password: password.value,
+                },
             })
+
+            is_error.value = ''
+            if(request.error) {
+                is_error.value = request.reason
+            }
+        } catch (error) {
+            console.log(error)
+            is_error.value = error.message
+        } finally {
+            is_loading.value = false
+        }
+    }
+
+
+    // FIELDS VALIDATE
+    function isRequired(value) {
+        if (value && value.trim()) {
+            return true;
         }
 
-        email.value = ''
-        password.value = ''
-
-        await router.push('/')
-
-        isLoadingStore.set(false)
-    }
-
-    import { Field, Form, ErrorMessage } from 'vee-validate';
-
-    function isRequired(value) {
-    if (value && value.trim()) {
-        return true;
-    }
-
-    return 'Обязательное поле';
+        return 'Обязательное поле';
     }
 
 </script>
 <template>
     <div class="rounded-3xl login-form p-10">
         <h1 class="font-black text-3xl">Войти в аккаунт</h1>
-        <Form class="mt-8">
+        <UIAlert v-if="is_error" custom_class="mt-4" type="error">{{ is_error }}</UIAlert>
+        <Form @submit="login" class="mt-8">
             <div>
                 <label for="login">Логин: </label><br>
-                <Field name="login" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                <Field v-model="email" name="login" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isRequired" /><br>
                 <ErrorMessage class="text-red-500 text-xs" name="login" />
             </div>
             <div class="mt-4">
                 <label for="login">Пароль: </label><br>
-                <Field name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
                 <ErrorMessage class="text-red-500 text-xs" name="password" />
             </div>
             <div class="mt-4">
-                <UIButton type="success">Войти</UIButton>
+                <UIButton v-if="!is_loading" type="submit" button_type="success">
+                    Войти
+                </UIButton>
+                <UIButton v-else type="button" button_type="loading"/>
             </div>
             <div class="flex items-center justify-between mt-4">
                 <UILink type="error" link="/reset-password">Забыли пароль?</UILink>

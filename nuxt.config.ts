@@ -5,8 +5,12 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss', 
     'nuxt-icon',
     '@pinia/nuxt',
+    '@hebilicious/vue-query-nuxt',
   ],
   pinia: {
     storesDirs: ['./store/**']
+  },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
 })
