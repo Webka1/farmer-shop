@@ -51,7 +51,7 @@
 </script>
 <template>
     <div class="rounded-3xl login-form p-10">
-        <h1 class="font-black text-3xl">Войти в аккаунт {{ authenticated }}</h1>
+        <h1 class="font-black text-3xl">Войти в аккаунт</h1>
         <UIAlert v-if="error" custom_class="mt-4" type="error">{{ error }}</UIAlert>
         <Form @submit="login_user" class="mt-8">
             <div>
