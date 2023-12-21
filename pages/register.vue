@@ -30,6 +30,7 @@
     const is_error = ref('')
 
     // REGUSTER FUNCTION
+    // TODO: 'пеенести егистраицю блять туда сюда'
     const register = async (e) => {
         is_loading.value = true
         try {

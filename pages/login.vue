@@ -9,8 +9,6 @@
     const { authenticated, error, loading } = storeToRefs(useAuthStore())
 
     const router = useRouter()
-    
-
 
     // SEO
     useSeoMeta({
@@ -23,12 +21,6 @@
     // USER INPUTS
     const email = ref('')
     const password = ref('')
-
-
-    // FETCH
-    const is_loading = ref(false)
-    const is_error = ref('')
-
 
     // LOGIN ACTION
     async function login_user(values) {
