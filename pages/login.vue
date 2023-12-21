@@ -2,6 +2,14 @@
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
     import { Field, Form, ErrorMessage } from 'vee-validate';
+    import { storeToRefs } from 'pinia';
+    import { useAuthStore } from '@/store/auth.store'
+
+    const { login } = useAuthStore();
+    const { authenticated, error, loading } = storeToRefs(useAuthStore())
+
+    const router = useRouter()
+    
 
 
     // SEO
@@ -23,26 +31,10 @@
 
 
     // LOGIN ACTION
-    async function login(values) {
-        is_loading.value = true
-        try {
-            const request = await $fetch('/api/login', {
-                method: 'POST',
-                body: {
-                    email: email.value,
-                    password: password.value,
-                },
-            })
-
-            is_error.value = ''
-            if(request.error) {
-                is_error.value = request.reason
-            }
-        } catch (error) {
-            console.log(error)
-            is_error.value = error.message
-        } finally {
-            is_loading.value = false
+    async function login_user(values) {
+        await login(email.value, password.value)
+        if(authenticated.value == true) {
+            router.push('/profile/')
         }
     }
 
@@ -59,9 +51,9 @@
 </script>
 <template>
     <div class="rounded-3xl login-form p-10">
-        <h1 class="font-black text-3xl">Войти в аккаунт</h1>
-        <UIAlert v-if="is_error" custom_class="mt-4" type="error">{{ is_error }}</UIAlert>
-        <Form @submit="login" class="mt-8">
+        <h1 class="font-black text-3xl">Войти в аккаунт {{ authenticated }}</h1>
+        <UIAlert v-if="error" custom_class="mt-4" type="error">{{ error }}</UIAlert>
+        <Form @submit="login_user" class="mt-8">
             <div>
                 <label for="login">Логин: </label><br>
                 <Field v-model="email" name="login" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isRequired" /><br>
@@ -73,14 +65,14 @@
                 <ErrorMessage class="text-red-500 text-xs" name="password" />
             </div>
             <div class="mt-4">
-                <UIButton v-if="!is_loading" type="submit" button_type="success">
+                <UIButton v-if="!loading" type="submit" button_type="success">
                     Войти
                 </UIButton>
                 <UIButton v-else type="button" button_type="loading"/>
             </div>
             <div class="flex items-center justify-between mt-4">
                 <UILink type="error" link="/reset-password">Забыли пароль?</UILink>
-                <UILink bold="true" link="/register">Зарегистрироваться</UILink>
+                <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
             </div>
         </Form>
     </div>

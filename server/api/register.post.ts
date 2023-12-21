@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     if(existingUser) {
       return {
         error: true, 
-        reason: 'Пользователь с такой почтой уже существует.'
+        reason: 'Такой пользователь уже существует'
       }
     }
 

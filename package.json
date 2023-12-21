@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.10.1",
+    "@types/jsonwebtoken": "^9.0.5",
     "nuxt": "^3.8.2",
     "nuxt-icon": "^0.6.7",
     "prisma": "^5.7.1",
@@ -23,6 +24,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.7.1",
     "@tanstack/vue-query": "^5.14.4",
+    "jsonwebtoken": "^9.0.2",
     "pinia": "^2.1.7",
     "vee-validate": "^4.12.3"
   }

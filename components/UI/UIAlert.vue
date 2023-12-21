@@ -8,7 +8,7 @@ import { stringifyQuery } from 'vue-router';
             default: 'default'
         },
         custom_class: {
-            type: stringifyQuery,
+            type: String,
             required: false
         }
     })

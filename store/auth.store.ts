@@ -1,43 +1,39 @@
-interface IAuthStore {
-    email: string,
-    name: string,
-    status: boolean
-}
-const defaultValue: {user: IAuthStore} = {
-    user: {
-        email: '',
-        name: '',
-        status: false
-    }
-}
 export const useAuthStore = defineStore('auth', {
-    state: () => defaultValue,
-    getters: {
-        isAuth: state => state.user.status
-    },
-    actions: {
-        clear() {
-            this.$patch(defaultValue)
-        },
-        set(input: IAuthStore) {
-            this.$patch({
-                user: input
-            })
-        }
-    }
-})
-
-
-export const useIsLoadingStore = defineStore('isLoading', {
     state: () => ({
-        isLoading: false,
+        authenticated: false,
+        loading: false,
+        error: ''
     }),
     actions: {
-        set(data: boolean) {
-            this.$patch({
-                isLoading: data
+        async login(login: string, password: string) {
+            this.loading = true
+            this.authenticated = false
+            this.error = ''
+            const request = await $fetch('/api/login', {
+                method: 'POST',
+                body: {
+                    email: login,
+                    password
+                },
             })
-        }
+
+            if(request.error == true) {
+                // @ts-ignore
+                this.error = request.reason
+                this.loading = false
+            }
+            // @ts-ignore
+            if(request.token) {
+                const token = useCookie('token')
+                // @ts-ignore
+                token.value = request.token
+                this.authenticated = true
+            }
+        },
+        logUserOut() {
+            const token = useCookie('token')
+            this.authenticated = false
+            token.value = null
+          },
     }
 })
-

@@ -1,10 +1,14 @@
-<script setup lang="ts">
-   
+<script setup>
+   import { storeToRefs } from 'pinia'
+   import { useAuthStore } from '@/store/auth.store'
+
+   const { logUserOut } = useAuthStore()
+   const { authenticated  } = storeToRefs(useAuthStore())
 </script>
 
 <template>
     <div class="main-content p-20 bg-blue-100">
-        <Header :isLoggedIn="false"/>
+        <Header :isLoggedIn="authenticated"/>
         <div class="bg-white p-10 rounded-b-3xl">
             <slot/>
         </div>
