@@ -104,7 +104,7 @@
 
 
 </script>
-<!-- TODO: ANIMATIONS -->
+<!-- TODO: ANIMATIONS, SUCCESS AUTH ALERT, REDIRECT TO LOGIN AFTER REGISTRATION -->
 <template>
     <div class="rounded-3xl login-form p-10">
         <h1 class="font-black text-3xl">Зарегистрироваться</h1>

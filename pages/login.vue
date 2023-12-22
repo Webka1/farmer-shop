@@ -26,11 +26,11 @@
     const password = ref('')
 
     // LOGIN ACTION
-    async function login_user(values) {
-        await login(email.value, password.value)
+    function login_user(values) {
+        login(email.value, password.value)
         
         if(authenticated.value == true) {
-            await router.push({
+            router.push({
                 path: '/profile/'
             })
         }
@@ -48,6 +48,7 @@
     }
 
 </script>
+<!-- TODO: 'СДЕЛАТЬ РЕДИРЕКТ ТАМ И АНИМАЦИИ ИЛИ ОПОВЕЩЕНИЕ О УСПЕШНОЙ АВТОРИЗАЦИИ И НУ ЕЩЕ ЧОТО' -->
 <template>
     <div class="rounded-3xl login-form p-10">
         <h1 class="font-black text-3xl">Войти в аккаунт</h1>

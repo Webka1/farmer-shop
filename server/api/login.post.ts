@@ -17,81 +17,94 @@ const generateToken = (id: number, email: string) => {
 }
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
-
-    try {
-        const user = await prisma.users.findUnique({
-            where: {
-                email: body.email
-            }
-        })
-
-        if (!user) {
-            return {
-                error: true,
-                reason: 'Пользователь не найден'
-            }
+    if(event.context.is_protected) {
+        return {
+            error: true,
+            reason: 'Неавторизован'
         }
+    } else {
+        const body = await readBody(event)
 
-        if (body.password !== user.password) {
-            return {
-                error: true,
-                reason: 'Неверный логин или пароль'
-            }
-        }
-
-        const token = generateToken(user.id, user.email)
+        const ip = (event.req.headers['x-forwarded-for'] || 
+        event.req.connection.remoteAddress || 
+        event.req.socket.remoteAddress || 
+        // @ts-ignore
+        event.req.connection.ocket.remoteAddress).split(",")[0];
 
         try {
-            const current_sessions = await prisma.sessions.updateMany({
-                data: {
-                    is_active: false
-                },
+            const user = await prisma.users.findUnique({
                 where: {
-                    user: user
+                    email: body.email
                 }
             })
 
-            const new_session = await prisma.sessions.create({
-                data: {
-                    is_active: true,
-                    ip: '0.0.0.0', // TODO: GET IP AND CHANGE IP
-                    user_id: user.id,
-                    jwt: token
-                },
-            })
-
-            if (!new_session) {
+            if (!user) {
                 return {
                     error: true,
-                    reason: 'Ошибка при добавлении сессии'
+                    reason: 'Пользователь не найден'
                 }
             }
 
-            return {
-                error: false,
-                token,
-                user: user.id
+            if (body.password !== user.password) {
+                return {
+                    error: true,
+                    reason: 'Неверный логин или пароль'
+                }
+            }
+
+            const token = generateToken(user.id, user.email)
+
+            try {
+                const current_sessions = await prisma.sessions.updateMany({
+                    data: {
+                        is_active: false
+                    },
+                    where: {
+                        user: user
+                    }
+                })
+
+                const new_session = await prisma.sessions.create({
+                    data: {
+                        is_active: true,
+                        ip: ip,
+                        user_id: user.id,
+                        jwt: token
+                    },
+                })
+
+                if (!new_session) {
+                    return {
+                        error: true,
+                        reason: 'Ошибка при добавлении сессии'
+                    }
+                }
+
+                return {
+                    error: false,
+                    token,
+                    user: user.id
+                }
+            } catch (error) {
+                console.log(error)
+
+                return {
+                    error: true,
+                    reason: "Ошибка при добавлении сессии"
+                }
             }
         } catch (error) {
             console.log(error)
 
             return {
                 error: true,
-                reason: "Ошибка при добавлении сессии"
+                reason: 'Ошибка при авторизации'
             }
         }
-    } catch (error) {
-        console.log(error)
 
         return {
-            error: true,
-            reason: 'Ошибка при авторизации'
+            error: false,
+            reason: 'Maybe'
         }
-    }
-
-    return {
-        error: false,
-        reason: 'Maybe'
     }
 })

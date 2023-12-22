@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('auth', {
         authenticated: false,
         loading: false,
         error: '',
+        user_id: 0
     }),
     getters: {
         getSession: async (state) => {
@@ -24,9 +25,11 @@ export const useAuthStore = defineStore('auth', {
     },
     actions: {
         async login(login: string, password: string) {
-            this.loading = true
-            this.authenticated = false
-            this.error = ''
+            this.$patch({
+                error: '',
+                loading: true,
+                authenticated: false
+            })
             const request = await $fetch('/api/login', {
                 method: 'POST',
                 body: {
@@ -36,23 +39,33 @@ export const useAuthStore = defineStore('auth', {
             })
 
             if(request.error == true) {
-                // @ts-ignore
-                this.error = request.reason
-                this.loading = false
+                this.$patch({
+                    // @ts-ignore
+                    error: request.reason,
+                    loading: false
+                })
             }
             // @ts-ignore
             if(request.token) {
                 const token = useCookie('token')
                 // @ts-ignore
                 token.value = request.token
-                this.authenticated = true
+                this.$patch({
+                    authenticated: true,
+                    loading: false,
+                    // @ts-ignore
+                    user_id: request.user
+                })
             }
         },
         logUserOut() {
             const token = useCookie('token')
-            this.authenticated = false
             token.value = null
-            this.loading = false
+
+            this.$patch({
+                authenticated: false,
+                loading: false
+            })
         },
     }
 })

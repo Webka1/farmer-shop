@@ -8,16 +8,14 @@
             default: false
         }
     })
-
-
     import { useAuthStore } from '@/store/auth.store'
 
     const { logUserOut } = useAuthStore()
     const router = useRouter()
     async function logout() {
-        await logUserOut()
+        logUserOut()
 
-        await router.push('/login')
+        router.push('/login')
     }
 </script>
 

@@ -6,6 +6,13 @@ const prisma = new PrismaClient()
 // TODO: FIELDS VALIDATE (SS)
 
 export default defineEventHandler(async (event) => {
+  if(event.context.is_protected) {
+    return {
+        error: true,
+        reason: 'Неавторизован'
+    }
+  } else {
+
     const body = await readBody(event)
 
     const existingUser = await prisma.users.findUnique({
@@ -34,4 +41,5 @@ export default defineEventHandler(async (event) => {
     if(newUser) {
       console.log(newUser)
     }
+  }
 })
