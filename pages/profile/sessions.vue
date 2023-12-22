@@ -37,8 +37,8 @@
     })
 </script>
 <template>
-    <h2 class="font-black text-black text-3xl"><span class="mr-4">🔐</span>Сессии</h2>
-    <div class="relative overflow-x-auto rounded-xl mt-4">
+    <UIPageTitle icon="🔐">Сессии</UIPageTitle>
+    <div class="relative overflow-x-auto rounded-xl">
         <table class="w-full text-sm text-left rtl:text-right border-b border-l border-r text-white">
             <thead class="text-sm text-white uppercase bg-green-500">
                 <tr>

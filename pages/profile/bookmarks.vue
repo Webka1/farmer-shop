@@ -11,5 +11,6 @@
 
 </script>
 <template>
-    <h2 class="font-black text-black text-3xl"><span class="mr-4">🔖</span>Сохраненные товары</h2>
+    <UIPageTitle icon="🔖">Сохраненные товары</UIPageTitle>
+    ergtyw
 </template>

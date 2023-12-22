@@ -11,5 +11,5 @@
 
 </script>
 <template>
-    <h2 class="font-black text-black text-3xl"><span class="mr-4">📋</span>Мои заказы</h2>
+    <UIPageTitle icon="📋">Мои заказы</UIPageTitle>
 </template>

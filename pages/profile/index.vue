@@ -10,7 +10,7 @@
 </script>
 <template>
     <div>
-        <h2 class="font-black text-black text-3xl"><span class="mr-4">😃</span>Мой профиль</h2>
+        <UIPageTitle icon="✌️">Мой профиль</UIPageTitle>
         <UILink link="/profile/sessions">Сессии</UILink>
     </div>
 </template>
