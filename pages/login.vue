@@ -26,8 +26,8 @@
     const password = ref('')
 
     // LOGIN ACTION
-    function login_user(values) {
-        login(email.value, password.value)
+    async function login_user(values) {
+        await login(email.value, password.value)
         
         if(authenticated.value == true) {
             router.push({
@@ -52,8 +52,8 @@
 <template>
     <div class="rounded-3xl login-form p-10">
         <h1 class="font-black text-3xl">Войти в аккаунт</h1>
-        <UIAlert v-if="error" custom_class="mt-4" type="error">{{ error }}</UIAlert>
-        <Form @submit="login_user" class="mt-8">
+        <div class="mb-4">&emsp;<UIAlert v-if="error" type="error">{{ error }}</UIAlert></div>
+        <Form @submit="login_user" class="mt-4">
             <div>
                 <label for="login">Логин: </label><br>
                 <Field v-model="email" name="login" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isRequired" /><br>

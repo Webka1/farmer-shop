@@ -6,9 +6,6 @@ import { server_protected_routes } from "@/utils/protected_routes"
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
-    // const test = await prisma.users.findMany()
-    const path = event.path
-
     if(server_protected_routes.includes(event.path)) {
         event.context.is_protected = true
 

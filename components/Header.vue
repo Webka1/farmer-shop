@@ -29,8 +29,8 @@
             <NavLink link="/" icon="solar:home-2-outline" text="Главная"/>
             <NavLink link="/cart" icon="solar:cart-large-2-linear" text="Корзина"/>
             
-            <NavLink v-if="props.isLoggedIn" link="/orders" icon="solar:checklist-minimalistic-linear" text="Заказы"/>
-            <NavLink v-if="props.isLoggedIn" link="/bookmarks" icon="solar:bookmark-linear" text="Закладки"/>
+            <NavLink v-if="props.isLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear" text="Заказы"/>
+            <NavLink v-if="props.isLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Закладки"/>
             <NavLink v-if="props.isLoggedIn" link="/profile/" icon="solar:user-circle-linear" text="Профиль"/>
             <NavLink v-if="props.isLoggedIn" :onClick="logout" link="#" icon="solar:logout-3-linear" text="Выйти" color="text-red-500" hover="text-red-400"/>
 
