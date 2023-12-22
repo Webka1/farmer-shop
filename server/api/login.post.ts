@@ -90,7 +90,8 @@ export default defineEventHandler(async (event) => {
 
                 return {
                     error: true,
-                    reason: "Ошибка при добавлении сессии"
+                    reason: "Ошибка при добавлении сессии",
+                    info: error
                 }
             }
         } catch (error) {
@@ -98,7 +99,8 @@ export default defineEventHandler(async (event) => {
 
             return {
                 error: true,
-                reason: 'Ошибка при авторизации'
+                reason: 'Ошибка при авторизации',
+                info: error
             }
         }
 
