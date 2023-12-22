@@ -53,7 +53,7 @@
     <div class="rounded-3xl login-form p-10">
         <h1 class="font-black text-3xl">Войти в аккаунт</h1>
         <div class="mb-4">&emsp;<UIAlert v-if="error" type="error">{{ error }}</UIAlert></div>
-        <Form as="div" @submit="login_user" class="mt-4">
+        <Form as="div" class="mt-4">
             <form action="#">
                 <div>
                     <label for="login">Логин: </label><br>
@@ -66,9 +66,10 @@
                     <ErrorMessage class="text-red-500 text-xs" name="password" />
                 </div>
                 <div class="mt-4">
-                    <UIButton v-if="!loading" type="submit" button_type="success">
+                    <!-- <UIButton v-if="!loading" @click.native="(() => { console.log('clicked button') })" type="button" button_type="success">
                         Войти
-                    </UIButton>
+                    </UIButton> -->
+                    <button v-if="!loading" @click="login_user">Войти</button>
                     <UIButton v-else type="button" button_type="loading"/>
                 </div>
                 <div class="flex items-center justify-between mt-4">
