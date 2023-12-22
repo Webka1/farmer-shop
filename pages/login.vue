@@ -5,10 +5,13 @@
     import { storeToRefs } from 'pinia';
     import { useAuthStore } from '@/store/auth.store'
 
+    const router = useRouter()
     const { login } = useAuthStore();
     const { authenticated, error, loading } = storeToRefs(useAuthStore())
 
-    const router = useRouter()
+    if(authenticated.value == true) {
+        router.push('/profile')
+    }
 
     // SEO
     useSeoMeta({
@@ -25,9 +28,13 @@
     // LOGIN ACTION
     async function login_user(values) {
         await login(email.value, password.value)
+        
         if(authenticated.value == true) {
-            router.push('/profile/')
+            await router.push({
+                path: '/profile/'
+            })
         }
+
     }
 
 

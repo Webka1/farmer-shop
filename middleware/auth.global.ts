@@ -3,27 +3,35 @@ import { useAuthStore } from '../store/auth.store';
 import { PrismaClient } from '@prisma/client'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-  const token = useCookie('token'); // get token from cookies
+  const { authenticated, getSession } = storeToRefs(useAuthStore()); // make authenticated state reactive
+  const session = await getSession.value
 
-  if (token.value) {
+  const protected_routes = [
+    'profile',
+  ]
+
+
+  if(!session) {
+    authenticated.value = false
+  }
+
+  if(!session?.is_active) {
+    authenticated.value = false
+  }
+
+  if(session?.is_active) {
     authenticated.value = true
   }
 
-  // // if token exists and url is /login redirect to homepage
-  // if (token.value && to?.name === 'login') {
-  //   return navigateTo('/');
-  // }
+  if(session?.is_active == false) {
+    authenticated.value = false
+  }
 
-  // // if token doesn't exist redirect to log in
-  // if (!token.value && to?.name !== 'login') {
-  //   abortNavigation();
-  //   return navigateTo('/login');
-  // }
-  // TODO: ПРОВЕРКУ АВТОРИЗАЦИИ БЛЯ СДЕЛАТЬ
+  // CHECK IF PROTECTED ROUTES
 
-  if(!token.value && to?.name == 'profile') {
-    abortNavigation();
-    return navigateTo('/login');
+  // @ts-ignore
+  if(!session && protected_routes.includes(to?.name) || !session?.is_active && protected_routes.includes(to?.name)) {
+    abortNavigation()
+    return navigateTo('/login')
   }
 });

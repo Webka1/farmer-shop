@@ -7,10 +7,8 @@ const prisma = new PrismaClient()
 // TODO: ENCRYPT PASSWORD FOR KAIFFF
 
 const generateToken = (id: number, email: string) => {
-    const date = new Date()
-
     const payload = {
-        id, email, date
+        id, email
     }
 
     return jwt.sign(payload, JWT_SECRET, {
@@ -72,7 +70,8 @@ export default defineEventHandler(async (event) => {
 
             return {
                 error: false,
-                token
+                token,
+                user: user.id
             }
         } catch (error) {
             console.log(error)

@@ -13,6 +13,12 @@
     import { useAuthStore } from '@/store/auth.store'
 
     const { logUserOut } = useAuthStore()
+    const router = useRouter()
+    async function logout() {
+        await logUserOut()
+
+        await router.push('/login')
+    }
 </script>
 
 <template>
@@ -28,7 +34,7 @@
             <NavLink v-if="props.isLoggedIn" link="/orders" icon="solar:checklist-minimalistic-linear" text="Заказы"/>
             <NavLink v-if="props.isLoggedIn" link="/bookmarks" icon="solar:bookmark-linear" text="Закладки"/>
             <NavLink v-if="props.isLoggedIn" link="/profile/" icon="solar:user-circle-linear" text="Профиль"/>
-            <NavLink v-if="props.isLoggedIn" :onClick="logUserOut" link="#" icon="solar:logout-3-linear" text="Выйти" color="text-red-500" hover="text-red-400"/>
+            <NavLink v-if="props.isLoggedIn" :onClick="logout" link="#" icon="solar:logout-3-linear" text="Выйти" color="text-red-500" hover="text-red-400"/>
 
             <NavLink v-if="!props.isLoggedIn" link="/login" icon="solar:login-3-outline" text="Войти"/>
         </div>

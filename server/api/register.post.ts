@@ -34,4 +34,4 @@ export default defineEventHandler(async (event) => {
     if(newUser) {
       console.log(newUser)
     }
-  })
+})

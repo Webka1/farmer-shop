@@ -2,6 +2,8 @@
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
     import { Field, Form, ErrorMessage } from 'vee-validate';
+    
+    const { authenticated } = storeToRefs(useAuthStore())
 
 
     // seo 
@@ -12,9 +14,12 @@
         ogDescription: SITE_DESCRIPTION
     })
 
+    // REDIRECT IF AUTH
 
-    // VUE QUERY INIT
-    const queryClient = useQueryClient()
+    const router = useRouter()
+    if(authenticated.value == true) {
+        router.push('/profile')
+    }
 
 
     // USER INPUTS
@@ -48,6 +53,10 @@
             is_error.value = ''
             if(request.error) {
                 is_error.value = request.reason
+            }
+
+            if(!request.error) {
+                router.push('/login')
             }
         } catch (error) {
             console.log(error)

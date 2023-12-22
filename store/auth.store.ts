@@ -1,9 +1,27 @@
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         authenticated: false,
         loading: false,
-        error: ''
+        error: '',
     }),
+    getters: {
+        getSession: async (state) => {
+            const token = useCookie('token')
+            const session = await $fetch('/api/session', {
+                method: 'POST',
+                body: {
+                    token: token.value
+                }
+            })
+
+            // @ts-ignore
+            return session.session
+        }
+    },
     actions: {
         async login(login: string, password: string) {
             this.loading = true
@@ -34,6 +52,7 @@ export const useAuthStore = defineStore('auth', {
             const token = useCookie('token')
             this.authenticated = false
             token.value = null
-          },
+            this.loading = false
+        },
     }
 })
