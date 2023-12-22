@@ -25,12 +25,15 @@ export default defineEventHandler(async (event) => {
             })
 
             if(session?.is_active) {
+                event.context.is_logged_in =  true
                 event.context.user_id = session?.user_id
             } else {
                 event.context.user_id = 'User expired'
+                event.context.is_logged_in =  false
             }
         } catch (error) {
             event.context.user_id = 'Filed to verify jwt'
+            event.context.is_logged_in =  false
         }
     } else {
         event.context.is_protected = false

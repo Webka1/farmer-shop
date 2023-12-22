@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     }
   } else {
     return {
-      message: 'Hello, World! This route protected',
+      message: 'Hello, World! This route not protected',
     }
   }
 })

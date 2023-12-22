@@ -3,20 +3,17 @@ const prisma = new PrismaClient()
 
 export default defineEventHandler( async (event) => {
 
-  // const get_sessions = await prisma.sessions.findMany({
-  //   take: 5,
-  //   where: {
-  //       user_id: 1
-  //   },
-  //   orderBy: {
-  //       id: 'desc'
-  //   }
-  // })
-
-  // console.log(get_sessions)
-
-  return {
-    message: 'protected route',
-    is_protected_route: event.context
+  if(event.context.is_protected && event.context.is_logged_in) {
+    return {
+      error: false,
+      message: 'Hello user, this route protected',
+      your_user_id: event.context.user_id,
+      is_you_logged_in: event.context.is_logged_in
+    }
+  } else {
+    return {
+      error: true,
+      reason: 'Неавторизован'
+    }
   }
 })
