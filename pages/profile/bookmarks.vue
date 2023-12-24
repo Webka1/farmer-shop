@@ -11,6 +11,8 @@
 
 </script>
 <template>
-    <UIPageTitle icon="🔖">Сохраненные товары</UIPageTitle>
+    <div>
+        <UIPageTitle icon="🔖">Сохраненные товары</UIPageTitle>
     ergtyw
+    </div>
 </template>

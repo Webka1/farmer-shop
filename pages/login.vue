@@ -1,9 +1,10 @@
 <script setup>
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
-    import { Field, Form, ErrorMessage } from 'vee-validate';
     import { storeToRefs } from 'pinia';
     import { useAuthStore } from '@/store/auth.store'
+    import { login_rules } from '@/utils/validators'
+    import { useVuelidate } from '@vuelidate/core';
 
     const router = useRouter()
     const { login } = useAuthStore();
@@ -22,59 +23,69 @@
     })
 
     // USER INPUTS
-    const email = ref('')
-    const password = ref('')
-
-    // LOGIN ACTION
-    async function login_user(values) {
-        await login(email.value, password.value)
-        
-        if(authenticated.value == true) {
-            router.push({
-                path: '/profile/'
-            })
-        }
-
-    }
+    const formData = reactive({
+        email: '',
+        password: ''
+    })
 
 
     // FIELDS VALIDATE
-    function isRequired(value) {
-        if (value && value.trim()) {
-            return true;
-        }
+    const v$ = useVuelidate(login_rules, formData)
 
-        return 'Обязательное поле';
+
+    // LOGIN ACTION
+    const login_user = async () => {
+        v$.value.$validate();
+        if (!v$.value.$error) {
+            await login(formData.email, formData.password)
+
+            if(authenticated.value == true) {
+                router.push('/profile')
+            }
+        }
     }
 
 </script>
-<!-- TODO: 'СДЕЛАТЬ РЕДИРЕКТ ТАМ И АНИМАЦИИ ИЛИ ОПОВЕЩЕНИЕ О УСПЕШНОЙ АВТОРИЗАЦИИ И НУ ЕЩЕ ЧОТО' -->
 <template>
-    <div class="rounded-3xl login-form p-10">
-        <h1 class="font-black text-3xl">Войти в аккаунт</h1>
-        <div class="mb-4">&emsp;<UIAlert v-if="error" type="error">{{ error }}</UIAlert></div>
-        <Form @submit="login_user" class="mt-4">
-            <div>
-                <label for="login">Логин: </label><br>
-                <Field v-model="email" name="login" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                <ErrorMessage class="text-red-500 text-xs" name="login" />
-            </div>
-            <div class="mt-4">
-                <label for="login">Пароль: </label><br>
-                <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                <ErrorMessage class="text-red-500 text-xs" name="password" />
-            </div>
-            <div class="mt-4">
-                <UIButton v-if="!loading" type="submit" button_type="success">
-                    Войти
-                </UIButton>
-                <UIButton v-else type="button" button_type="loading"/>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <UILink type="error" link="/reset-password">Забыли пароль?</UILink>
-                <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
-            </div>
-        </Form>
+    <div>
+        <div class="rounded-3xl login-form p-10">
+            <h1 class="font-black text-3xl">Войти в аккаунт</h1>
+            <UIAlert class="mt-4" v-if="error" type="error">{{ error }}</UIAlert>
+            <form @submit.prevent="login_user">
+                <div class="mt-4 flex flex-col">
+                    <label for="login">Логин: </label>
+                    <input @change="v$.email.$touch" v-model="formData.email" type="text" name="login" placeholder="example@example.com" class="form-input-custom mt-1" :class="{
+                        'form-input-error mt-1': v$.email.$error
+                    }">
+                    <div class="text-xs text-red-500 mt-1" v-for="error in v$.email.$errors">
+                        {{ error.$message }}
+                    </div>
+                </div>
+                <div class="mt-4 flex flex-col">
+                    <label for="password">Пароль: </label>
+                    <input @change="v$.password.$touch" v-model="formData.password" type="password" name="password" placeholder="**********" class="form-input-custom mt-1" :class="{
+                        'form-input-error mt-1': v$.password.$error
+                    }">
+                </div>
+                <div class="mt-4">
+                    <UIButton v-if="!loading" type="submit" button_type="success">
+                        Войти
+                    </UIButton>
+                    <UIButton v-else type="button" button_type="loading"/>
+                </div>
+                <div class="flex items-center justify-between mt-4">
+                    <UILink type="error" link="/reset-password">Забыли пароль?</UILink>
+                    <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
+                </div>
+            </form>
+            <!-- <Form @submit="login_user" class="mt-4">
+                <div class="mt-4">
+                    <label for="login">Пароль: </label><br>
+                    <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                    <ErrorMessage class="text-red-500 text-xs" name="password" />
+                </div>
+            </Form> -->
+        </div>
     </div>
 </template>
 <style scoped>
@@ -87,5 +98,10 @@
         border: 1px solid;
         width: 400px;
         @apply border-slate-400 rounded-md transition outline-none p-2 hover:border-slate-500 focus:border-green-500
+    }
+    .form-input-error {
+        border: 1px solid;
+        width: 400px;
+        @apply border-red-400 rounded-md transition outline-none p-2 hover:border-red-500 focus:border-red-500
     }
 </style>

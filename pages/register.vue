@@ -1,8 +1,6 @@
 <script setup>
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
-    import { Field, Form, ErrorMessage } from 'vee-validate';
-    
     const { authenticated } = storeToRefs(useAuthStore())
 
 
@@ -106,48 +104,50 @@
 </script>
 <!-- TODO: ANIMATIONS, SUCCESS AUTH ALERT, REDIRECT TO LOGIN AFTER REGISTRATION -->
 <template>
-    <div class="rounded-3xl login-form p-10">
-        <h1 class="font-black text-3xl">Зарегистрироваться</h1>
-        <UIAlert v-if="is_error" custom_class="mt-4" type="error">{{ is_error }}</UIAlert>
-        <Form @submit="register" class="mt-8">
-            <div>
-                <label for="login">Логин: </label><br>
-                <Field v-model="email" autocomplete="off" name="login" type="email" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isEmail"/><br>
-                <ErrorMessage class="text-red-500 text-xs" name="login" />
-            </div>
-            <div class="mt-4">
-                <label for="login">Пароль: </label><br>
-                <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                <ErrorMessage class="text-red-500 text-xs" name="password" />
-            </div>
-            <div class="flex items-center justify-between mt-4 gap-4">
+   <div>
+        <div class="rounded-3xl login-form p-10">
+            <h1 class="font-black text-3xl">Зарегистрироваться</h1>
+            <UIAlert v-if="is_error" custom_class="mt-4" type="error">{{ is_error }}</UIAlert>
+            <!-- <Form @submit="register" class="mt-8">
                 <div>
-                    <label for="name">Имя: </label><br>
-                    <Field v-model="first_name" name="name" type="text" placeholder="Иван" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                    <ErrorMessage class="text-red-500 text-xs" name="name" />
+                    <label for="login">Логин: </label><br>
+                    <Field v-model="email" autocomplete="off" name="login" type="email" placeholder="example@example.com" class="form-input-custom mt-1" :rules="isEmail"/><br>
+                    <ErrorMessage class="text-red-500 text-xs" name="login" />
                 </div>
-                <div>
-                    <label for="lastname">Фамилия: </label><br>
-                    <Field v-model="last_name" name="lastname" type="text" placeholder="Иванов" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                    <ErrorMessage class="text-red-500 text-xs" name="lastname" />
+                <div class="mt-4">
+                    <label for="login">Пароль: </label><br>
+                    <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                    <ErrorMessage class="text-red-500 text-xs" name="password" />
                 </div>
-            </div>
-            <div class="mt-4">
-                <label for="phone">Телефон: </label><br>
-                <Field v-model="phone_number" name="phone" type="text" placeholder="+71112223344" class="form-input-custom mt-1" :rules="isPhone" /><br>
-                <ErrorMessage class="text-red-500 text-xs" name="phone" />
-            </div>
-            <div class="mt-4">
-                <UIButton v-if="!is_loading" type="submit" button_type="success">
-                    Зарегистрироваться
-                </UIButton>
-                <UIButton v-else type="button" button_type="loading"/>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <UILink :bold="true" link="/login">Уже есть аккаунт?</UILink>
-            </div>
-        </Form>
-    </div>
+                <div class="flex items-center justify-between mt-4 gap-4">
+                    <div>
+                        <label for="name">Имя: </label><br>
+                        <Field v-model="first_name" name="name" type="text" placeholder="Иван" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                        <ErrorMessage class="text-red-500 text-xs" name="name" />
+                    </div>
+                    <div>
+                        <label for="lastname">Фамилия: </label><br>
+                        <Field v-model="last_name" name="lastname" type="text" placeholder="Иванов" class="form-input-custom mt-1" :rules="isRequired" /><br>
+                        <ErrorMessage class="text-red-500 text-xs" name="lastname" />
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label for="phone">Телефон: </label><br>
+                    <Field v-model="phone_number" name="phone" type="text" placeholder="+71112223344" class="form-input-custom mt-1" :rules="isPhone" /><br>
+                    <ErrorMessage class="text-red-500 text-xs" name="phone" />
+                </div>
+                <div class="mt-4">
+                    <UIButton v-if="!is_loading" type="submit" button_type="success">
+                        Зарегистрироваться
+                    </UIButton>
+                    <UIButton v-else type="button" button_type="loading"/>
+                </div>
+                <div class="flex items-center justify-between mt-4">
+                    <UILink :bold="true" link="/login">Уже есть аккаунт?</UILink>
+                </div>
+            </Form> -->
+        </div>
+   </div>
 </template>
 <style scoped>
     .login-form {

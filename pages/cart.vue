@@ -1,5 +1,7 @@
 <template>
     <div>
-        Hello from cart
+        <div>
+            Hello from cart
+        </div>
     </div>
 </template>

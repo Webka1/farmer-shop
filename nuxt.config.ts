@@ -8,5 +8,8 @@ export default defineNuxtConfig({
   ],
   pinia: {
     storesDirs: ['./store/**']
-  }
+  },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
 })

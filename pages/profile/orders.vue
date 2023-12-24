@@ -11,5 +11,7 @@
 
 </script>
 <template>
-    <UIPageTitle icon="📋">Мои заказы</UIPageTitle>
+    <div>
+        <UIPageTitle icon="📋">Мои заказы</UIPageTitle>
+    </div>
 </template>

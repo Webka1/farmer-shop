@@ -37,61 +37,63 @@
     })
 </script>
 <template>
-    <UIPageTitle icon="🔐">Сессии</UIPageTitle>
-    <div class="relative overflow-x-auto rounded-xl">
-        <table class="w-full text-sm text-left rtl:text-right border-b border-l border-r text-white">
-            <thead class="text-sm text-white uppercase bg-green-500">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        IP
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Статус
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Дата авторизации
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Дата завершения сессии
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="!is_loading" v-for="session in sessions" class="text-slate-500 border-b font-bold">
-                    <td class="px-6 py-4">
-                        {{ session.ip }}
-                    </td>
-                    <td class="px-6 py-4">
-                        <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
-                            Текущая
-                        </span>
-                        <span v-else class="p-1 bg-red-100 text-red-500 pl-2 pr-2 rounded-full">
-                            Завершена
-                        </span>
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ new Date(session.created_at).toLocaleDateString() }}&emsp;{{ new Date(session.created_at).toLocaleTimeString() }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ new Date(session.updated_at).toLocaleDateString() }}&emsp;{{ new Date(session.updated_at).toLocaleTimeString() }}
-                    </td>
-                </tr>
-                <tr v-else v-for="n in 7" class="animate-pulse">
-                    <td class="px-6 py-4">
-                        <div class="h-4 bg-gray-300 w-1/2"></div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="h-5 rounded-full bg-gray-300 w-2/3"></div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="h-4 bg-gray-300 w-1/2"></div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="h-4 bg-gray-300 w-1/2"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div>
+        <UIPageTitle icon="🔐">Сессии</UIPageTitle>
+        <div class="relative overflow-x-auto rounded-xl">
+            <table class="w-full text-sm text-left rtl:text-right border-b border-l border-r text-white">
+                <thead class="text-sm text-white uppercase bg-green-500">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            IP
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Статус
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Дата авторизации
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Дата завершения сессии
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="!is_loading" v-for="session in sessions" class="text-slate-500 border-b font-bold">
+                        <td class="px-6 py-4">
+                            {{ session.ip }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
+                                Текущая
+                            </span>
+                            <span v-else class="p-1 bg-red-100 text-red-500 pl-2 pr-2 rounded-full">
+                                Завершена
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ new Date(session.created_at).toLocaleDateString() }}&emsp;{{ new Date(session.created_at).toLocaleTimeString() }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ new Date(session.updated_at).toLocaleDateString() }}&emsp;{{ new Date(session.updated_at).toLocaleTimeString() }}
+                        </td>
+                    </tr>
+                    <tr v-else v-for="n in 7" class="animate-pulse">
+                        <td class="px-6 py-4">
+                            <div class="h-4 bg-gray-300 w-1/2"></div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="h-5 rounded-full bg-gray-300 w-2/3"></div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="h-4 bg-gray-300 w-1/2"></div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="h-4 bg-gray-300 w-1/2"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <style scoped>

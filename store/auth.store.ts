@@ -18,6 +18,14 @@ export const useAuthStore = defineStore('auth', {
                     token: token.value
                 }
             })
+            
+            // @ts-ignore
+            if(session.error) {
+                state.authenticated = false,
+                state.user_id = 0
+
+                token.value = ''
+            }
 
             // @ts-ignore
             return session.session

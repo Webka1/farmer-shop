@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
                 session
             }
         } catch (error) {
-            console.log('filed to verify jsonwebtoken')
+            console.log('Filed to verify jsonwebtoken')
 
             return {
                 error: true,
