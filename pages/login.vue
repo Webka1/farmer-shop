@@ -10,6 +10,7 @@
     const { login } = useAuthStore();
     const { authenticated, error, loading } = storeToRefs(useAuthStore())
 
+    // auth check
     if(authenticated.value == true) {
         router.push('/profile')
     }
@@ -39,7 +40,7 @@
         if (!v$.value.$error) {
             await login(formData.email, formData.password)
 
-            if(authenticated.value == true) {
+            if(authenticated.value) {
                 router.push('/profile')
             }
         }
@@ -66,6 +67,9 @@
                     <input @change="v$.password.$touch" v-model="formData.password" type="password" name="password" placeholder="**********" class="form-input-custom mt-1" :class="{
                         'form-input-error mt-1': v$.password.$error
                     }">
+                    <div class="text-xs text-red-500 mt-1" v-for="error in v$.password.$errors">
+                        {{ error.$message }}
+                    </div>
                 </div>
                 <div class="mt-4">
                     <UIButton v-if="!loading" type="submit" button_type="success">
@@ -78,13 +82,6 @@
                     <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
                 </div>
             </form>
-            <!-- <Form @submit="login_user" class="mt-4">
-                <div class="mt-4">
-                    <label for="login">Пароль: </label><br>
-                    <Field v-model="password" name="password" type="password" placeholder="**************" class="form-input-custom mt-1" :rules="isRequired" /><br>
-                    <ErrorMessage class="text-red-500 text-xs" name="password" />
-                </div>
-            </Form> -->
         </div>
     </div>
 </template>

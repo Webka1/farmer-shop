@@ -7,7 +7,7 @@
 </script>
 
 <template>
-    <div class="main-content p-20 bg-blue-100">
+    <div class="main-content p-20 bg-[#f7fde8]">
         <Header :isLoggedIn="authenticated"/>
         <div class="bg-white p-10 rounded-b-3xl">
             <slot/>

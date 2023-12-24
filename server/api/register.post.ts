@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
     const existingUser = await prisma.users.findUnique({
       where: {
-        email: body.email
+        email: body.formData.email
       }
     })
 
@@ -30,16 +30,21 @@ export default defineEventHandler(async (event) => {
 
     const newUser = await prisma.users.create({
       data: {
-        email: body.email,
-        password: body.password,
-        first_name: body.first_name,
-        last_name: body.last_name,
-        phone_number: body.phone_number
+        email: body.formData.email,
+        password: body.formData.password,
+        first_name: body.formData.first_name,
+        last_name: body.formData.last_name,
+        phone_number: body.formData.phone_number
       }
     })
 
     if(newUser) {
       console.log(newUser)
+
+      return {
+        error: false,
+        message: 'Успешная регистрация'
+      }
     }
   }
 })

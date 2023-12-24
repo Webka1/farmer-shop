@@ -28,7 +28,7 @@
     })
 </script>
 <template>
-    <NuxtLink activeClass="text-green-500 hover:text-green-500" :class="`flex transition items-center justify-start ${props.color} font-bold hover:`+props.hover.trim()" :to="props.link">
+    <NuxtLink :class="`flex transition items-center justify-start ${props.color} font-bold hover:text-black`" activeClass="text-green-500 hover:text-green-500" :to="props.link">
         <Icon :name="`${props.icon}`" width="25" height="25"/>&nbsp;
         <p>{{ props.text }}</p>
     </NuxtLink>
