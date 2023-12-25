@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
+import prisma from '@/utils/prisma'
+
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "~/app.constants"
 import { server_protected_routes } from "@/utils/protected_routes"
-
-const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
     if(server_protected_routes.includes(event.path)) {

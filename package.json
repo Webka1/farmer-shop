@@ -23,6 +23,7 @@
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.7.1",
+    "@prisma/extension-accelerate": "^0.6.2",
     "@tanstack/vue-query": "^5.14.4",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",

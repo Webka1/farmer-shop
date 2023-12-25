@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
+import prisma from '@/utils/prisma'
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "~/app.constants"
-
-const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
     if(event.context.is_protected) {

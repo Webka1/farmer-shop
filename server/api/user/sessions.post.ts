@@ -1,17 +1,10 @@
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+// import { PrismaClient } from "@prisma/client"
+import prisma from '@/utils/prisma'
 
 export default defineEventHandler( async (event) => {
 
   if(event.context.is_protected && event.context.is_logged_in) {
     const body = await readBody(event)
-    // return {
-    //   error: false,
-    //   message: 'Hello user, this route protected',
-    //   your_user_id: event.context.user_id,
-    //   is_you_logged_in: event.context.is_logged_in,
-    //   count_of_sessions: body.count
-    // }
     if(event.context.user_id) {
       try {
         const sessions = await prisma.sessions.findMany({

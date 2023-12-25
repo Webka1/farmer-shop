@@ -78,7 +78,7 @@
                     <UIButton v-else type="button" button_type="loading"/>
                 </div>
                 <div class="flex items-center justify-between mt-4">
-                    <UILink type="error" link="/reset-password">Забыли пароль?</UILink>
+                    <UILink type="error" link="/">Забыли пароль?</UILink>
                     <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
                 </div>
             </form>

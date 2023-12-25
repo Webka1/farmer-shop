@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+// import { PrismaClient } from "@prisma/client"
+import prisma from '@/utils/prisma'
 
 // TODO: ENCRYPT PASSWORD FOR KAIFFF
 // TODO: FIELDS VALIDATE (SS)
