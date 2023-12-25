@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "~/app.constants"
 
 // TODO: ENCRYPT PASSWORD FOR KAIFFF
+// TODO: НЕ ЗАКРЫВАТЬ ВСЕ СЕССИИ (ПОЖАЛУЙСТА)
 
 const generateToken = (id: number, email: string) => {
     const payload = {
