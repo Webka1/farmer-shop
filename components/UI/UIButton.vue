@@ -1,4 +1,7 @@
 <script setup>
+
+// TODO: REFACTOR BUTTONS
+
     const props = defineProps({
         button_type: {
             type: String,

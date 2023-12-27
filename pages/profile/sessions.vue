@@ -1,8 +1,5 @@
 <script setup>
-    import { PrismaClient } from '@prisma/client';
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
-
-    const prisma = new PrismaClient()
 
     // SEO
     useSeoMeta({
@@ -44,10 +41,7 @@
                 <thead class="text-sm text-white uppercase bg-green-500">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            IP
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Статус
+                            User Agent
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Дата авторизации
@@ -55,26 +49,29 @@
                         <th scope="col" class="px-6 py-3">
                             Дата завершения сессии
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Действия
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-if="!is_loading" v-for="session in sessions" class="text-slate-500 border-b font-bold">
                         <td class="px-6 py-4">
-                            {{ session.ip }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
-                                Текущая
-                            </span>
-                            <span v-else class="p-1 bg-red-100 text-red-500 pl-2 pr-2 rounded-full">
-                                Завершена
-                            </span>
+                            {{ session.user_agent }}
                         </td>
                         <td class="px-6 py-4">
                             {{ new Date(session.created_at).toLocaleDateString() }}&emsp;{{ new Date(session.created_at).toLocaleTimeString() }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ new Date(session.updated_at).toLocaleDateString() }}&emsp;{{ new Date(session.updated_at).toLocaleTimeString() }}
+                            <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
+                                Активная
+                            </span>
+                            <span v-else>
+                                {{ new Date(session.finished_at).toLocaleDateString() }}&emsp;{{ new Date(session.finished_at).toLocaleTimeString() }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <UIButton button_type="error" v-if="session.is_active">Завершить</UIButton>
                         </td>
                     </tr>
                     <tr v-else v-for="n in 7" class="animate-pulse">

@@ -25,8 +25,10 @@
     "@prisma/client": "^5.7.1",
     "@prisma/extension-accelerate": "^0.6.2",
     "@tanstack/vue-query": "^5.14.4",
+    "@types/bcryptjs": "^2.4.6",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "bcryptjs": "^2.4.3",
     "cookie-universal-nuxt": "^2.2.2",
     "jsonwebtoken": "^9.0.2",
     "pinia": "^2.1.7"

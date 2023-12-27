@@ -1,18 +1,29 @@
-// import { PrismaClient } from "@prisma/client"
 import prisma from '@/utils/prisma'
+import bcrypt from 'bcryptjs'
 
 // TODO: ENCRYPT PASSWORD FOR KAIFFF
 // TODO: FIELDS VALIDATE (SS)
 
 export default defineEventHandler(async (event) => {
+  const body = await readBody(event)
+
   if(event.context.is_protected) {
     return {
         error: true,
         reason: 'Неавторизован'
     }
+  } else if(!body.formData || 
+    !body.formData.email || 
+    !body.formData.password || 
+    !body.formData.first_name || 
+    !body.formData.last_name ||
+    !body.formData.last_name ||
+    !body.formData.phone_number) {
+    return {
+      error: true,
+      reason: 'Нехватает данных для регистрации'
+    }
   } else {
-
-    const body = await readBody(event)
 
     const existingUser = await prisma.users.findUnique({
       where: {
@@ -27,10 +38,11 @@ export default defineEventHandler(async (event) => {
       }
     }
 
+    const hashedPassword = bcrypt.hashSync(body.formData.password, 7)
     const newUser = await prisma.users.create({
       data: {
         email: body.formData.email,
-        password: body.formData.password,
+        password: hashedPassword,
         first_name: body.formData.first_name,
         last_name: body.formData.last_name,
         phone_number: body.formData.phone_number

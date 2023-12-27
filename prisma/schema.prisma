@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Users {
@@ -35,6 +36,8 @@ model Sessions {
   jwt String?
   user Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id Int
+  user_agent String?
+  finished_at DateTime?
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
 }

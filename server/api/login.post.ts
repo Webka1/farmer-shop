@@ -2,9 +2,11 @@
 import prisma from '@/utils/prisma'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "~/app.constants"
+import bcrypt from 'bcryptjs'
 
-// TODO: ENCRYPT PASSWORD FOR KAIFFF
 // TODO: НЕ ЗАКРЫВАТЬ ВСЕ СЕССИИ (ПОЖАЛУЙСТА)
+// TODO СДЕЛАТЬ ВМЕСТО АЙПИ ЮЗЕР АГЕНТА
+// TODO: ПЖ ЗАВЕРЕШННЫЕ СЕССИ ИЗМЕНИТЬ ПОН (ДОБАВИТЬ ЕЩЕ ОДНУ КОЛОНКУ В БД)
 
 const generateToken = (id: number, email: string) => {
     const payload = {
@@ -24,12 +26,12 @@ export default defineEventHandler(async (event) => {
         }
     } else {
         const body = await readBody(event)
-
         const ip = (event.req.headers['x-forwarded-for'] || 
         event.req.connection.remoteAddress || 
         event.req.socket.remoteAddress || 
         // @ts-ignore
         event.req.connection.ocket.remoteAddress).split(",")[0];
+        const user_agent = event.headers.get('user-agent')
 
         try {
             const user = await prisma.users.findUnique({
@@ -45,7 +47,9 @@ export default defineEventHandler(async (event) => {
                 }
             }
 
-            if (body.password !== user.password) {
+            const checkPassword = bcrypt.compareSync(body.password, user.password)
+
+            if (!checkPassword) {
                 return {
                     error: true,
                     reason: 'Неверный логин или пароль'
@@ -55,19 +59,11 @@ export default defineEventHandler(async (event) => {
             const token = generateToken(user.id, user.email)
 
             try {
-                const current_sessions = await prisma.sessions.updateMany({
-                    data: {
-                        is_active: false
-                    },
-                    where: {
-                        user: user
-                    }
-                })
-
                 const new_session = await prisma.sessions.create({
                     data: {
                         is_active: true,
                         ip: ip,
+                        user_agent: user_agent,
                         user_id: user.id,
                         jwt: token
                     },
@@ -83,7 +79,8 @@ export default defineEventHandler(async (event) => {
                 return {
                     error: false,
                     token,
-                    user: user.id
+                    user: user.id,
+                    session_id: new_session.id
                 }
             } catch (error) {
                 console.log(error)
@@ -105,7 +102,7 @@ export default defineEventHandler(async (event) => {
         }
 
         return {
-            error: false,
+            error: true,
             reason: 'Maybe'
         }
     }

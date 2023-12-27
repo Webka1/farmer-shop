@@ -29,6 +29,11 @@ export default defineEventHandler(async (event) => {
                 event.context.is_logged_in =  false
             }
         } catch (error) {
+            
+            await finishSession(token).then((res: any) => {
+                console.log('/server/middleware/auth: ', res)
+            })
+
             event.context.user_id = 'Filed to verify jwt | server mw'
             event.context.is_logged_in =  false
         }
