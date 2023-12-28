@@ -24,12 +24,13 @@ export async function finishSession(token: string) {
     if(finish_session) {
         return {
             error: false,
-            message: 'Finished session id: ' + current_session?.id
+            message: 'Завершили сессию с id: ' + current_session?.id,
+            finished_at: finish_session.finished_at
         }
     } else {
         return {
             error: true,
-            reason: `Cant't finish session :(`
+            reason: `Не могу завешить ссессию :(`
         }
     }
 }

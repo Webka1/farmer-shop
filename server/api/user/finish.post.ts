@@ -11,9 +11,30 @@ export default defineEventHandler( async (event) => {
         const cookies = parseCookies(event)
         const token = cookies?.token
 
-        await finishSession(token).then((res: any) => {
-            console.log('/api/user/finish: ', res)
-        })
+        const body = await readBody(event)
+
+        if(body.jwt) {
+          await finishSession(body.jwt).then((res: any) => {
+              console.log('[w/ body jwt] /api/user/finish: ', res)
+
+              return {
+                error: false,
+                message: 'Завершили сессию с id: ' + res.id,
+                finished_at: res.finished_at
+              }
+          })
+        } else {
+          await finishSession(token).then((res: any) => {
+              console.log('[w/o body jwt] /api/user/finish: ', res)
+
+              return {
+                error: false,
+                message: 'Завершили сессию с id: ' + res.id,
+                finished_at: res.finished_at
+              }
+          })
+        }
+
     } else {
       return {
         error: true,

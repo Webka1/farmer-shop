@@ -11,6 +11,7 @@
 
 
     const is_loading = ref(false)
+    const btn_is_loading = ref(false)
     const error = ''
     const sessions = ref([])
     const sessions_count = ref(5)
@@ -32,7 +33,35 @@
     onMounted(() => {
         fetch_sessions(sessions_count)
     })
+
+    const finishSession =  async (jwt) => {
+        btn_is_loading.value = true
+        try {
+            await $fetch('/api/user/finish', {
+                method: 'POST',
+                body: {
+                    jwt: jwt
+                }
+            }).then((response) => {
+                console.log(response)
+            }).finally(() => {
+                sessions.value = sessions.value.map((session) => {
+                    if (session.jwt === jwt) {
+                        session.is_active = false
+                        session.finished_at = new Date()
+                    }
+                    return session
+                })
+
+
+                btn_is_loading.value = false
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 </script>
+<!-- TODO: UPDATE DESIGN SESSION LIST -->
 <template>
     <div>
         <UIPageTitle icon="🔐">Сессии</UIPageTitle>
@@ -71,7 +100,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <UIButton button_type="error" v-if="session.is_active">Завершить</UIButton>
+                            <UIButton @click_fn="finishSession(session.jwt)" :button_type="btn_is_loading ? 'loading': 'error'" v-if="session.is_active">Завершить</UIButton>
                         </td>
                     </tr>
                     <tr v-else v-for="n in 7" class="animate-pulse">

@@ -29,7 +29,7 @@
 <template>
     <button @click="emit('click_fn')" v-if="props.button_type === 'success'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-2 text-md' } transition font-bold text-white bg-green-500 rounded-md hover:bg-green-400 ${props.custom_class}`"><slot/></button>
     <button v-if="props.button_type === 'default'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-2' } transition font-bold text-white bg-slate-500 rounded-md hover:bg-slate-400 ${props.custom_class}`"><slot/></button>
-    <button v-if="props.button_type === 'error'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-1' } transition font-bold text-white bg-red-500 rounded-md hover:bg-red-400 ${props.custom_class}`"><slot/></button>
+    <button @click="emit('click_fn')" v-if="props.button_type === 'error'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-1' } transition font-bold text-white bg-red-500 rounded-md hover:bg-red-400 ${props.custom_class}`"><slot/></button>
     <button v-if="props.button_type === 'loading'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-1' } transition font-bold text-white bg-slate-500 rounded-md hover:bg-slate-400 ${props.custom_class}`">
         <div role="status">
             <svg aria-hidden="true" class="inline w-5 h-5 text-gray-500 animate-spin  fill-gray-300 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
