@@ -12,7 +12,7 @@
 
     const is_loading = ref(false)
     const btn_is_loading = ref(false)
-    const error = ''
+    const error = ref('')
     const sessions = ref([])
     const sessions_count = ref(5)
     async function fetch_sessions(sessions_count) {
@@ -23,8 +23,12 @@
                 count: sessions_count.value
             }
         }).then((response) => {
-            sessions.value = response.sessions
-            is_loading.value = false
+            if(response.error) {
+                error.value = response.reason
+            } else {
+                sessions.value = response.sessions
+                is_loading.value = false
+            }
         }).finally(() => {
             is_loading.value = false
         })
@@ -61,65 +65,50 @@
         }
     }
 </script>
-<!-- TODO: UPDATE DESIGN SESSION LIST -->
 <template>
     <div>
         <UIPageTitle icon="🔐">Сессии</UIPageTitle>
-        <div class="relative overflow-x-auto rounded-xl">
-            <table class="w-full text-sm text-left rtl:text-right border-b border-l border-r text-white">
-                <thead class="text-sm text-white uppercase bg-green-500">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            User Agent
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Дата авторизации
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Дата завершения сессии
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Действия
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-if="!is_loading" v-for="session in sessions" class="text-slate-500 border-b font-bold">
-                        <td class="px-6 py-4">
-                            {{ session.user_agent }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ new Date(session.created_at).toLocaleDateString() }}&emsp;{{ new Date(session.created_at).toLocaleTimeString() }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
-                                Активная
-                            </span>
-                            <span v-else>
-                                {{ new Date(session.finished_at).toLocaleDateString() }}&emsp;{{ new Date(session.finished_at).toLocaleTimeString() }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <UIButton @click_fn="finishSession(session.jwt)" :button_type="btn_is_loading ? 'loading': 'error'" v-if="session.is_active">Завершить</UIButton>
-                        </td>
-                    </tr>
-                    <tr v-else v-for="n in 7" class="animate-pulse">
-                        <td class="px-6 py-4">
-                            <div class="h-4 bg-gray-300 w-1/2"></div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="h-5 rounded-full bg-gray-300 w-2/3"></div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="h-4 bg-gray-300 w-1/2"></div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="h-4 bg-gray-300 w-1/2"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div v-if="!is_loading && error">
+            <UIAlert type="error">
+                {{ error }}
+            </UIAlert>
+            <div class="mt-4 w-2/6">
+                <UIButton button_type="success" @click_fn="fetch_sessions(sessions_count)">Попробовать еще раз</UIButton>
+            </div>
         </div>
+        <div v-else-if="!is_loading && !error">
+            <div class="p-4 rounded-3xl border-2 mt-6 border-slate-200 grid grid-cols-6 justify-center gap-8 items-center" v-for="session in sessions">
+                <div class="col-span-3">
+                    <h2 class="font-bold text-xl text-gray-600">{{ session.user_agent }}</h2>
+                    <p class="mt-2 text-md font-semibold text-gray-400">IP: {{ session.ip }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-400">
+                        Дата авторизации
+                    </p>
+                    <p class="text-gray-600">
+                        {{ new Date(session.created_at).toLocaleString() }}
+                    </p>
+                </div>
+                <div v-if="!session.is_active">
+                    <p class="text-sm text-slate-400">
+                        Дата завершения сессии
+                    </p>
+                    <p class="text-gray-600">
+                        {{ new Date(session.finished_at).toLocaleString() }}
+                    </p>
+                </div>
+                <div v-else>
+                    <span v-if="session.is_active" class="p-1 bg-green-100 text-green-500 pl-2 pr-2 rounded-full">
+                        Активная
+                    </span>
+                </div>
+                <div>
+                    <UIButton @click_fn="finishSession(session.jwt)" :button_type="btn_is_loading ? 'loading': 'error'" v-if="session.is_active">Завершить</UIButton>
+                </div>
+            </div>
+        </div>
+        <Loading v-else/>
     </div>
 </template>
 <style scoped>

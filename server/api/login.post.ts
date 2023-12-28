@@ -4,10 +4,6 @@ import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "~/app.constants"
 import bcrypt from 'bcryptjs'
 
-// TODO: НЕ ЗАКРЫВАТЬ ВСЕ СЕССИИ (ПОЖАЛУЙСТА)
-// TODO СДЕЛАТЬ ВМЕСТО АЙПИ ЮЗЕР АГЕНТА
-// TODO: ПЖ ЗАВЕРЕШННЫЕ СЕССИ ИЗМЕНИТЬ ПОН (ДОБАВИТЬ ЕЩЕ ОДНУ КОЛОНКУ В БД)
-
 const generateToken = (id: number, email: string) => {
     const payload = {
         id, email

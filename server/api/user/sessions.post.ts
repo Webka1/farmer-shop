@@ -18,7 +18,8 @@ export default defineEventHandler( async (event) => {
             id: true,
             user_agent: true,
             is_active: true,
-            jwt: true
+            jwt: true,
+            ip: true
           },
           orderBy: {
             id: 'desc'

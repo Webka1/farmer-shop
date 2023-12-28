@@ -1,9 +1,6 @@
 import prisma from '@/utils/prisma'
 import bcrypt from 'bcryptjs'
 
-// TODO: ENCRYPT PASSWORD FOR KAIFFF
-// TODO: FIELDS VALIDATE (SS)
-
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
