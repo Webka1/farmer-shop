@@ -1,6 +1,7 @@
 import prisma from '@/utils/prisma'
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "~/app.constants"
+import { finishSession } from '@/utils/finishSession'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -33,6 +34,9 @@ export default defineEventHandler(async (event) => {
             }
         } catch (error) {
             console.log('Filed to verify jsonwebtoken')
+
+            // вот тут завершаем истекшую сессию
+            finishSession(body.token)
 
             return {
                 error: true,

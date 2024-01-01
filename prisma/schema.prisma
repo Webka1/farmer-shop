@@ -34,10 +34,41 @@ model Sessions {
   ip String?
   is_active Boolean
   jwt String?
-  user Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user Users @relation(fields: [user_id], references: [id], onDelete: NoAction)
   user_id Int
   user_agent String?
   finished_at DateTime?
   created_at DateTime @default(now())
   updated_at DateTime? @updatedAt
+}
+
+model Items {
+  id Int @id @default(autoincrement())
+  item_image String?
+  item_name String?
+  item_price Int?
+  item_description String?
+  item_tech_description Json?
+  item_tags String?
+  item_discount Int @default(0) // 0%
+  item_stock Int?
+  is_deleted Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime? @db.DateTime(0)
+  item_category Categories @relation(fields: [category_id], references: [id], onDelete: NoAction)
+  category_id Int
+}
+
+model Categories {
+  id Int @id @default(autoincrement())
+  category_name String?
+  category_description String?
+  category_image String?
+  category_url String?
+  is_deleted Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime? @db.DateTime(0)
+  items Items[]
 }

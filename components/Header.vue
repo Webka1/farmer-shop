@@ -27,7 +27,7 @@
         </NuxtLink>
         <div class="header_links flex items-center justify-start gap-8">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная"/>
-            <NavLink link="/cart" icon="solar:cart-large-2-linear" text="Корзина"/>
+            <NavLink link="/cart" icon="solar:cart-large-2-linear" text="0 руб."/>
             
             <NavLink v-if="props.isLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear" text="Заказы"/>
             <NavLink v-if="props.isLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Закладки"/>

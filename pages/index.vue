@@ -15,9 +15,9 @@
         <div class="bg-slate-300 rounded-3xl h-80 w-full p-10">
             тут картинку топовую
         </div>
-        <div class="mt-5 mb-5">
-            <h2 class="font-black text-black text-3xl">Все товары</h2>
+        <div class="mt-5 mb-5 flex items-center justify-between">
+            <CategoryTitle>Товары со скидкой</CategoryTitle>
+            <Filter/>
         </div>
-        <UIAlert/>
     </div>
 </template>
