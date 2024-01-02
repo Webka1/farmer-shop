@@ -23,7 +23,7 @@
     <header class="p-10 bg-white rounded-t-3xl header flex items-center justify-between">
         <NuxtLink to="/">
             <h2 class="font-bold text-xl">{{ BRAND_NAME }}</h2>
-            <p class="text-slate-400">Лучший фермерский магазин</p>
+            <p class="text-slate-400">Заказ фермерских продуктов</p>
         </NuxtLink>
         <div class="header_links flex items-center justify-start gap-8">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная"/>

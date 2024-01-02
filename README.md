@@ -1,75 +1,24 @@
-# Nuxt 3 Minimal Starter
+# Дипломная работа
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Разработка интернет-магазина "Фермер. Заказ продуктов"
 
-## Setup
+## Стэк технологий
 
-Make sure to install the dependencies:
+Платформа разработки проекта **Node JS**, используемый фреймворк - **NuxtJS**
+С использованием дополнительных библиотек
+1. Tailwind CSS (UI)
+2. Pinia (Store)
+3. Prisma (ORM) | MySQL DB + Prisma Accelerate
+4. VueQuery (Unused) потому что или забыл или не умею ею пользоваться :(
+5. bcryptjs (тоси боси)
+6. Vuelidate (Form validation)
+7. JsonWebToken (тыры пыры)
+8. Nuxt-icons (иконки)
 
-```bash
-# npm
-npm install
+## TODO:
+* Рефактор UI компонентов
+* Исправление багов с редиректорм при авторизации\регистрации\логаута
+* Заверешение сессий фикс (пж)
+* Найти консоль логи и удалить их йомайоу
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+* Админ-панель

@@ -2,7 +2,7 @@
 
 <template>
 <div class='w-full'>
-                <div class='h-1.5 w-full bg-green-100 overflow-hidden'>
+                <div class='h-1.5 mt-4 w-full bg-green-100 overflow-hidden'>
                     <div class='progress w-full h-full bg-green-500 left-right'></div>
                 </div>
             </div>

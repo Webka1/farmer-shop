@@ -27,6 +27,6 @@
     .form-select-custom {
         border: 1px solid;
         width: 400px;
-        @apply border-slate-400 rounded-md transition outline-none p-[9.5px] hover:border-slate-500 focus:border-green-500 bg-white
+        @apply border-slate-400 w-fit rounded-md transition outline-none p-[9.5px] hover:border-slate-500 focus:border-green-500 bg-white
     }
 </style>
