@@ -1,8 +1,9 @@
 <script setup>
     const props = defineProps({
+        id: Number,
         image: String,
         title: String,
-        price: String,
+        price: Number,
         url: String,
         isAdded: Boolean,
         isFavorite: Boolean,
@@ -12,7 +13,7 @@
 </script>
 
 <template>
-    <div class="rounded-b-3xl w-96 hover:shadow-sm group">
+    <div class="rounded-b-3xl w-96 hover:shadow-sm group animka">
         <img class="rounded-t-3xl w-96" :src="props.image" alt="">
         <div class="w-96 transition p-4 border border-b border-l border-r border-slate-300 group-hover:border-b-slate-500 group-hover:border-l-slate-500 group-hover:border-r-slate-500 rounded-b-3xl text-wrap">
             <p class="text-black text-xl text-wrap">
@@ -27,16 +28,16 @@
                     }) }}
                 </div>
                 <div class="flex items-center justify-center gap-2">
-                    <div v-if="isFavorite" class="p-2 border border-pink-100 bg-pink-100 rounded-xl cursor-pointer">
+                    <div @click="onClickFavorite" v-if="isFavorite" class="p-2 border border-pink-100 bg-pink-100 rounded-xl cursor-pointer">
                         <Icon class="text-pink-500" name="solar:heart-bold" width="20" height="20"/>
                     </div>
-                    <div v-else class="p-2 border border-slate-300 rounded-xl cursor-pointer">
+                    <div @click="onClickFavorite" v-else class="p-2 border border-slate-300 rounded-xl cursor-pointer">
                         <Icon class="text-slate-500" name="solar:heart-outline" width="20" height="20"/>
                     </div>
                     <div v-if="isAdded" class="p-2 border border-green-100 bg-green-100 rounded-xl cursor-pointer">
                         <Icon class="text-green-500" name="solar:cart-large-minimalistic-bold" width="20" height="20"/>
                     </div>
-                    <div v-else class="p-2 border border-slate-300 rounded-xl cursor-pointer">
+                    <div @click="onClickAdd" v-else class="p-2 border border-slate-300 rounded-xl cursor-pointer">
                         <Icon class="text-slate-500" name="solar:cart-large-minimalistic-outline" width="20" height="20"/>
                     </div>
                 </div>
@@ -46,4 +47,5 @@
 </template>
 
 <style scoped>
+
 </style>

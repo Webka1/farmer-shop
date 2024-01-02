@@ -27,6 +27,9 @@ model Users {
   banned_at DateTime? @db.DateTime(0)
   deleted_at DateTime? @db.DateTime(0)
   sessions Sessions[]
+  // make favorited_by point to the correct model
+  favorited_items Items[] @relation("FavoritedItems")
+
 }
 
 model Sessions {
@@ -58,6 +61,8 @@ model Items {
   deleted_at DateTime? @db.DateTime(0)
   item_category Categories @relation(fields: [category_id], references: [id], onDelete: NoAction)
   category_id Int
+  // make sure to add the relation to the user model
+  favorited_by Users[] @relation("FavoritedItems")
 }
 
 model Categories {

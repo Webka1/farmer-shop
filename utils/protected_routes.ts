@@ -7,5 +7,11 @@ export const client_protected_routes = [
 
 export const server_protected_routes = [
     '/api/user/sessions',
-    '/api/user/finish'
+    '/api/user/sessions/',
+    '/api/user/finish/',
+    '/api/user/finish',
+    '/api/user/bookmarks/',
+    '/api/user/bookmarks',
+    '/api/user/bookmark/',
+    '/api/user/bookmark',
 ]

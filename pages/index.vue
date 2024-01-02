@@ -21,7 +21,7 @@
                 <CategoryTitle>Товары со скидкой</CategoryTitle>
                 <Filter/>
             </div>
-            <ItemsList/>
+            <ItemsList class="mt-8"/>
         </div>
     </div>
 </template>

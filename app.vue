@@ -14,4 +14,19 @@
     opacity: 0;
     transform: scale(0);
   }
+
+  @keyframes show {
+        from {
+            transform: scale(0.5);
+            opacity: 0.4;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animka {
+        animation: show 0.3s ease-in-out;
+    }
 </style>

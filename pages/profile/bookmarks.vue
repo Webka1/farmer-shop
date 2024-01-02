@@ -13,6 +13,6 @@
 <template>
     <div>
         <UIPageTitle icon="🔖">Сохраненные товары</UIPageTitle>
-    ergtyw
+        <ItemsList class="mt-8" :is_bookmarks="true" fetch_url="/api/user/bookmarks"/>
     </div>
 </template>

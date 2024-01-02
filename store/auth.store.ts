@@ -68,6 +68,9 @@ export const useAuthStore = defineStore('auth', {
 
             const finish = await $fetch('/api/user/finish', {
                 method: 'POST',
+                body: {
+                    jwt: useCookie('token').value
+                }
             })
 
             const token = useCookie('token')
