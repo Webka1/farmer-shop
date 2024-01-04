@@ -17,6 +17,10 @@
 
         router.push('/login')
     }
+
+    const emit = defineEmits([
+        'toggleCart'
+    ])
 </script>
 
 <template>
@@ -27,10 +31,10 @@
         </NuxtLink>
         <div class="header_links flex items-center justify-start gap-8">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная"/>
-            <NavLink link="/cart" icon="solar:cart-large-2-linear" text="0 руб."/>
+            <NavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" text="0 руб."/>
             
             <NavLink v-if="props.isLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear" text="Заказы"/>
-            <NavLink v-if="props.isLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Закладки"/>
+            <NavLink v-if="props.isLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Избранное"/>
             <NavLink v-if="props.isLoggedIn" link="/profile/" icon="solar:user-circle-linear" text="Профиль"/>
             <NavLink v-if="props.isLoggedIn" :onClick="logout" link="#" icon="solar:logout-3-linear" text="Выйти" color="text-red-500" hover="text-red-400"/>
 

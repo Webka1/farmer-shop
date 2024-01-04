@@ -21,15 +21,16 @@
 </script>
 
 <template>
-    <div class="rounded-b-3xl w-96 hover:shadow-sm group animka">
-        <img class="rounded-t-3xl w-96" :src="props.image" alt="">
+    <div v-auto-animate class="rounded-b-3xl w-96 hover:shadow-sm group">
+        <!-- <img class="rounded-t-3xl w-96" :src="props.image" alt=""> -->
+        <NuxtImg class="rounded-t-3xl" :src="props.image" loading="lazy"/>
         <div class="w-96 transition p-4 border border-b border-l border-r border-slate-300 group-hover:border-b-slate-500 group-hover:border-l-slate-500 group-hover:border-r-slate-500 rounded-b-3xl text-wrap">
             <p class="text-black text-xl text-wrap">
                 {{ props.title }}
             </p>
             <div class="flex mt-4 items-end justify-between">
                 <div class="font-bold text-xl">
-                    <span class="text-slate-600 text-sm font-normal">ЦЕНА: {{ isFavroiteLoading }}</span><br>
+                    <span class="text-slate-600 text-sm font-normal">ЦЕНА: </span><br>
                     {{ props.price.toLocaleString('ru-ru', {
                         style: 'currency',
                         currency: 'RUB'

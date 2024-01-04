@@ -67,8 +67,7 @@
 </script>
 
 <template>
-    <UIAlert v-if="props.items.length < 1" type="default">Нет товаров</UIAlert>
-    <div v-else class="flex items-center justify-normal gap-8">
+    <div v-auto-animate class="flex items-center justify-normal gap-8">
         <ItemCard
             v-for="item in items"
             :key="item.id"
