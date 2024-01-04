@@ -29,4 +29,8 @@
     .animka {
         animation: show 0.3s ease-in-out;
     }
+
+    .animka-leave-active {
+        animation: show 0.3s ease-in-out reverse;
+    }
 </style>

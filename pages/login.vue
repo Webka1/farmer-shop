@@ -1,14 +1,17 @@
 <script setup>
 
     import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
+    
     import { storeToRefs } from 'pinia';
     import { useAuthStore } from '@/store/auth.store'
+    
     import { login_rules } from '@/utils/validators'
     import { useVuelidate } from '@vuelidate/core';
 
     const router = useRouter()
-    const { login } = useAuthStore();
-    const { authenticated, error, loading } = storeToRefs(useAuthStore())
+
+    const authsStore = useAuthStore()
+    const { authenticated, error, loading } = storeToRefs(authsStore)
 
     // auth check
     if(authenticated.value == true) {
@@ -38,7 +41,7 @@
     const login_user = async () => {
         v$.value.$validate();
         if (!v$.value.$error) {
-            await login(formData.email, formData.password)
+            await authsStore.login(formData.email, formData.password)
 
             if(authenticated.value) {
                 router.push('/profile')

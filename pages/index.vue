@@ -16,12 +16,6 @@
             тут картинку топовую
         </div>
         <Categories/>
-        <div class="mt-14">
-            <div class="flex items-center justify-between">
-                <CategoryTitle>Товары со скидкой</CategoryTitle>
-                <Filter/>
-            </div>
-            <ItemsList class="mt-8"/>
-        </div>
+        <HomeAllItems class="mt-14"/>
     </div>
 </template>

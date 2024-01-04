@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
 
         return {
             error: false, 
+            reason: '',
             categories
         }
     } catch (error: any) {

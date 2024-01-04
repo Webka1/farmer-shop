@@ -29,6 +29,7 @@ export default defineEventHandler( async (event) => {
             return {
                 error: false,
                 reason: 'Успешно добавлено в закладки',
+                item: bookmark
             }
         } else if(body.action == 'remove') {
             const bookmark = await prisma.items.update({
@@ -55,6 +56,7 @@ export default defineEventHandler( async (event) => {
             return {
                 error: false,
                 reason: 'Успешно удалено из закладок',
+                item: bookmark
             }
         } else {
             return {

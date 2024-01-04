@@ -4,28 +4,16 @@ export default defineEventHandler( async (event) => {
     if(event.context.is_protected && event.context.is_logged_in) {
         // const body = await readBody(event)
         if(event.context.user_id) {
-            // const bookmarks = await prisma.users.findMany({
-            //     where: {
-            //         id: event.context.user_id
-            //     },
-            //     select: {
-                    
-            //     }
-            // })
-
-            const bookmarks = await prisma.items.findMany({
+            const bookmarks = await prisma.users.findMany({
                 where: {
-                    is_deleted: false,
-                    favorited_by: {
-                        some: {
-                            id: event.context.user_id
-                        }
-                    }
+                    id: event.context.user_id
                 },
-                //  add field isFavorited if item is favorited by user
+                select: {
+                    favorited_items: true
+                }
             })
 
-            const items = bookmarks.map((item) => {
+            const items = bookmarks[0].favorited_items.map((item) => {
                 return {
                     ...item,
                     isFavorite: true
@@ -36,6 +24,7 @@ export default defineEventHandler( async (event) => {
                 error: false,
                 items
             }
+            
         } else {
             return {
                 error: true,
