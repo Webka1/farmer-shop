@@ -33,4 +33,7 @@
     .animka-leave-active {
         animation: show 0.3s ease-in-out reverse;
     }
+    .animka-leave {
+        animation: show 0.3s ease-in-out reverse;
+    }
 </style>

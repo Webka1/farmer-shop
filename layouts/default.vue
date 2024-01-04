@@ -2,13 +2,25 @@
    import { storeToRefs } from 'pinia'
    import { useAuthStore } from '@/store/auth.store'
 
-   const { logUserOut } = useAuthStore()
-   const { authenticated  } = storeToRefs(useAuthStore())
+   const authStore = useAuthStore()
+   const { authenticated  } = storeToRefs(authStore)
+
+   const isOpenedCart = ref(false)
+
+    const toggleCart = () => {
+        isOpenedCart.value = !isOpenedCart.value
+    }
+
+    provide('toggleCart', {
+        toggleCart,
+        isOpenedCart
+    })
 </script>
 
 <template>
+    <CartDrawer v-if="isOpenedCart"/>
     <div class="main-content p-20 bg-[#f7fde8]">
-        <Header :isLoggedIn="authenticated"/>
+        <Header @toggleCart="toggleCart" :isLoggedIn="authenticated"/>
         <div class="bg-white p-10 rounded-b-3xl">
             <slot/>
         </div>

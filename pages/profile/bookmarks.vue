@@ -12,23 +12,33 @@
     })
 
     const bookmarksStore = useBookmarksStore()
-    const { bookmarks, is_loading, error } = storeToRefs(bookmarksStore)
+    const { bookmarks, error } = storeToRefs(bookmarksStore)
 
     if(!bookmarks.value.bookmarks) {
         await bookmarksStore.getBookmarks
     }
 
+    if(error.value) {
+        console.log('Error from bookmarks: ', error)
+    }
+
 </script>
 <template>
     <div>
-        <UIPageTitle icon="🔖">Сохраненные товары</UIPageTitle>
-        <Loading v-if="is_loading"/>
-        <div v-else-if="error && !is_loading" >
-            <UIAlert class="mt-4" type="error">{{ error }}</UIAlert>
-            <div class="mt-2">
-                <UIButton @click_fn="bookmarksStore.getBookmarks">Повторить</UIButton>
+        <div class="flex gap-4 items-center justify-between">
+            <div>
+                <UIPageTitle icon="🔖">Ваши избранные товары</UIPageTitle>
+            </div>
+            <div v-if="bookmarks.length > 0">
+                <Filter/>
             </div>
         </div>
-        <ItemsList v-else class="mt-8" :items="bookmarks"/>
+        <ItemsList v-if="bookmarks.length > 0" class="mt-8" :items="bookmarks"/>
+        <div class="flex flex-row justify-center items-center mt-20" v-else v-auto-animate>
+            <div>
+                <NuxtImg height="200" src="/img/2936983.png"/>
+                <p class="text-center text-lg text-wrap text-slate-400">Нет избранных товаров</p>
+            </div>
+        </div>
     </div>
 </template>
