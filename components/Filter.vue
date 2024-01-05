@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center gap-4">
         <UISelect :options="filters" />
-        <UIInput input_type="text" input_name="search" input_placeholder="Поиск по товарам" />
+        <UIInput @input="(e) => { search(e.target.value) }" input_type="text" input_name="search" input_placeholder="Поиск по товарам" />
     </div>
 </template>
 
@@ -20,6 +20,9 @@
             value: 'price_desc'
         }
     ]
+
+    const search = inject('search')
+    
 </script>
 
 <style scoped>
