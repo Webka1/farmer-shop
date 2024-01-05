@@ -13,10 +13,11 @@
     const authsStore = useAuthStore()
     const { authenticated, error, loading } = storeToRefs(authsStore)
 
-    // auth check
-    if(authenticated.value == true) {
-        router.push('/profile')
-    }
+    watch(() => authenticated.value, (value) => {
+        if(value) {
+            router.push('/profile')
+        }
+    })
 
     // SEO
     useSeoMeta({

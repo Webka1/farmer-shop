@@ -34,11 +34,6 @@
             </div>
         </div>
         <ItemsList v-if="bookmarks.length > 0" class="mt-8" :items="bookmarks"/>
-        <div class="flex flex-row justify-center items-center mt-20" v-else v-auto-animate>
-            <div>
-                <NuxtImg height="200" src="/img/2936983.png"/>
-                <p class="text-center text-lg text-wrap text-slate-400">Нет избранных товаров</p>
-            </div>
-        </div>
+        <ItemsEmpty v-else>Нет избранных товаров</ItemsEmpty>
     </div>
 </template>

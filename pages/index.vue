@@ -16,6 +16,8 @@
             тут картинку топовую
         </div>
         <Categories/>
-        <HomeAllItems class="mt-14"/>
+        <!-- <HomeAllItems class="mt-14"/> -->
+        <HomeItems class="mt-14" category="all" display_name="Все товары" :filter_enabled="true" empty_text="Нет товаров"/>
+        <HomeItems class="mt-14" category="sale" display_name="Товары со скидкой" empty_text="Нет товаров со скидкой"/>
     </div>
 </template>

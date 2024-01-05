@@ -18,6 +18,9 @@
         isFavroiteLoading.value = value
     })
 
+    import { useAuthStore } from '~/store/auth.store';
+    const authStore = useAuthStore()
+    const { authenticated } = storeToRefs(authStore)
 </script>
 
 <template>
@@ -45,10 +48,10 @@
                             </svg>
                         </div>
                     </div>
-                    <div @click="onClickFavorite" v-else-if="isFavorite && !isFavroiteLoading" class="p-2 border border-pink-100 bg-pink-100 rounded-xl cursor-pointer">
+                    <div @click="onClickFavorite" v-else-if="isFavorite && !isFavroiteLoading && authenticated" class="p-2 border border-pink-100 bg-pink-100 rounded-xl cursor-pointer">
                         <Icon class="text-pink-500" name="solar:heart-bold" width="20" height="20"/>
                     </div>
-                    <div @click="onClickFavorite" v-else-if="!isFavorite && !isFavroiteLoading" class="p-2 border border-slate-300 rounded-xl cursor-pointer">
+                    <div @click="onClickFavorite" v-else-if="!isFavorite && !isFavroiteLoading && authenticated" class="p-2 border border-slate-300 rounded-xl cursor-pointer">
                         <Icon class="text-slate-500" name="solar:heart-outline" width="20" height="20"/>
                     </div>
                     <div v-if="isAdded" class="p-2 border border-green-100 bg-green-100 rounded-xl cursor-pointer">

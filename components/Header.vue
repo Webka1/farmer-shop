@@ -8,6 +8,11 @@
             default: false
         }
     })
+
+    watch(() => props.isLoggedIn, (value) => {
+        console.log('Is logged in: ', value)
+    })
+
     import { useAuthStore } from '@/store/auth.store'
 
     const { logUserOut } = useAuthStore()

@@ -6,74 +6,74 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "mysql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model Users {
-  id Int @id @default(autoincrement())
-  first_name String?
-  last_name String?
-  phone_number String?
-  birthday DateTime?
-  personal_discound Int @default(0) // 0%
-  email String @unique
-  password String
-  is_banned Boolean @default(false)
-  is_deleted Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  banned_at DateTime? @db.DateTime(0)
-  deleted_at DateTime? @db.DateTime(0)
-  sessions Sessions[]
+  id                Int        @id @default(autoincrement())
+  first_name        String?
+  last_name         String?
+  phone_number      String?
+  birthday          DateTime?
+  personal_discound Int        @default(0) // 0%
+  email             String     @unique
+  password          String
+  is_banned         Boolean    @default(false)
+  is_deleted        Boolean    @default(false)
+  created_at        DateTime   @default(now())
+  updated_at        DateTime?  @updatedAt
+  banned_at         DateTime?  @db.DateTime(0)
+  deleted_at        DateTime?  @db.DateTime(0)
+  sessions          Sessions[]
   // make favorited_by point to the correct model
-  favorited_items Items[] @relation("FavoritedItems")
-
+  favorited_items   Items[]    @relation("FavoritedItems")
 }
 
 model Sessions {
-  id Int @id @default(autoincrement())
-  ip String?
-  is_active Boolean
-  jwt String?
-  user Users @relation(fields: [user_id], references: [id], onDelete: NoAction)
-  user_id Int
-  user_agent String?
+  id          Int       @id @default(autoincrement())
+  ip          String?
+  is_active   Boolean
+  jwt         String?
+  user        Users     @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  user_id     Int
+  user_agent  String?
   finished_at DateTime?
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
 }
 
 model Items {
-  id Int @id @default(autoincrement())
-  item_image String?
-  item_name String?
-  item_price Int?
-  item_description String?
+  id                    Int        @id @default(autoincrement())
+  item_image            String?
+  item_name             String?
+  item_price            Int?
+  item_description      String?
   item_tech_description Json?
-  item_tags String?
-  item_discount Int @default(0) // 0%
-  item_stock Int?
-  is_deleted Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  deleted_at DateTime? @db.DateTime(0)
-  item_category Categories @relation(fields: [category_id], references: [id], onDelete: NoAction)
-  category_id Int
+  item_tags             String?
+  item_is_sale          Boolean?   @default(false)
+  item_discount         Int        @default(0) // 0%
+  item_stock            Int?
+  is_deleted            Boolean    @default(false)
+  created_at            DateTime   @default(now())
+  updated_at            DateTime?  @updatedAt
+  deleted_at            DateTime?  @db.DateTime(0)
+  item_category         Categories @relation(fields: [category_id], references: [id], onDelete: NoAction)
+  category_id           Int
   // make sure to add the relation to the user model
-  favorited_by Users[] @relation("FavoritedItems")
+  favorited_by          Users[]    @relation("FavoritedItems")
 }
 
 model Categories {
-  id Int @id @default(autoincrement())
-  category_name String?
+  id                   Int       @id @default(autoincrement())
+  category_name        String?
   category_description String?
-  category_image String?
-  category_url String?
-  is_deleted Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-  deleted_at DateTime? @db.DateTime(0)
-  items Items[]
+  category_image       String?
+  category_url         String?
+  is_deleted           Boolean   @default(false)
+  created_at           DateTime  @default(now())
+  updated_at           DateTime? @updatedAt
+  deleted_at           DateTime? @db.DateTime(0)
+  items                Items[]
 }

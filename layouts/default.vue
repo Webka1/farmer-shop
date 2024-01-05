@@ -3,7 +3,7 @@
    import { useAuthStore } from '@/store/auth.store'
 
    const authStore = useAuthStore()
-   const { authenticated  } = storeToRefs(authStore)
+   const { authenticated } = storeToRefs(authStore)
 
    const isOpenedCart = ref(false)
 
