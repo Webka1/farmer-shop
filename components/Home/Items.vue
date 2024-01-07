@@ -10,23 +10,31 @@
             type: Boolean,
             default: false
         },
-        empty_text: String
+        empty_title: {
+            type: String,
+        },
+        empty_description: {
+            type: String,
+        },
+        empty_image: {
+            type: String,
+        },
+        empty_image_size: {
+            type: Number,
+        }
     })
 
-    const all_items = ref([])
-    const is_loading = ref(false)
-    const error = ref('')
+    const is_loading = ref(true)
+    
+    const filtered_items = ref([])
+    const non_change_items = ref([])
 
-    const { data, execute } = useFetch(`/api/items/${props.category}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
+    const { data, error } = useFetch(`/api/items/${props.category}`).then(res => {
         if (res.data.value.error) {
             error.value = res.data.value.reason
         } else {
-            all_items.value = res.data.value.items
+            filtered_items.value = res.data.value.items
+            non_change_items.value = res.data.value.items
         }
     }).catch(err => {
         console.log('Error from Home items (category: ' + props.category + '): ', err)
@@ -35,40 +43,44 @@
         is_loading.value = false
     })
 
-    onMounted(async () => {
-        is_loading.value = true
-        await execute
-    })
+    // function onSearch(input) {
 
-    function onSearch(input) {
 
-        if (input.length > 0) {
-            all_items.value = all_items.value.filter(item => {
+    // }
+
+    const onSearch = (input) => {
+        
+        if(input.length > 0) {
+            filtered_items.value = non_change_items.value.filter(item => {
                 return item.item_name.toLowerCase().includes(input.toLowerCase())
             })
         } else {
-            all_items.value = data.value.items
+            filtered_items.value = non_change_items.value
         }
-
-        console.log('Filtered items: ', all_items.value)
     }
+    
 
     provide('search', onSearch)
 
 </script>
 <template>
     <div>
-        <div class="mt-14">
-            <div class="flex items-center justify-between">
-                <CategoryTitle>{{ display_name }}</CategoryTitle>
-                <Filter v-if="filter_enabled" />
-            </div>
-
-            <Loading v-if="is_loading" />
-            <UIAlert v-else-if="error && !is_loading" class="mt-4" type="error">{{ error }}</UIAlert>
-            <ItemsList v-else-if="all_items.length > 0" :items="all_items" class="mt-8" />
-            <ItemsEmpty v-else>{{ empty_text }}</ItemsEmpty>
+        <div class="flex items-center justify-between">
+            <CategoryTitle>{{ display_name }}</CategoryTitle>
+            <Filter v-if="filter_enabled" />
         </div>
+
+        <Loading v-if="is_loading" />
+        <UIAlert v-else-if="error && !is_loading" class="mt-4" type="error">{{ error }}</UIAlert>
+        <ItemsList v-else-if="filtered_items.length > 0" :items="filtered_items" class="mt-8" />
+        <ItemsEmpty 
+            :title="props.empty_title" 
+            :description="props.empty_description" 
+            :image="props.empty_image" 
+            :image_size="props.empty_image_size" 
+            class="mt-10" 
+            v-else 
+        />
     </div>
 </template>
 <style scoped></style>

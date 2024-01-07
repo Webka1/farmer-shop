@@ -24,10 +24,9 @@
 </script>
 
 <template>
-    <div v-auto-animate class="rounded-b-3xl w-96 hover:shadow-sm group">
-        <!-- <img class="rounded-t-3xl w-96" :src="props.image" alt=""> -->
+    <div v-auto-animate class="rounded-b-3xl w-96 hover:shadow-2xl group transition-all duration-150 hover:mt-[-10px]">
         <NuxtImg class="rounded-t-3xl" :src="props.image" loading="lazy"/>
-        <div class="w-96 transition p-4 border border-b border-l border-r border-slate-300 group-hover:border-b-slate-500 group-hover:border-l-slate-500 group-hover:border-r-slate-500 rounded-b-3xl text-wrap">
+        <div class="w-96 transition p-4 border border-b border-l border-r border-slate-300 rounded-b-3xl text-wrap">
             <p class="text-black text-xl text-wrap">
                 {{ props.title }}
             </p>

@@ -27,7 +27,7 @@
     const emit = defineEmits(['click_fn'])
 </script>
 <template>
-    <button @click="emit('click_fn')" v-if="props.button_type === 'success'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-2 text-md' } transition font-bold text-white bg-green-500 rounded-md hover:bg-green-400 ${props.custom_class}`"><slot/></button>
+    <button @click="emit('click_fn')" v-if="props.button_type === 'success'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-2 text-md' } transition font-bold text-white bg-green-500 rounded-2xl hover:bg-green-400 ${props.custom_class}`"><slot/></button>
     <button v-if="props.button_type === 'default'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-2' } transition font-bold text-white bg-slate-500 rounded-md hover:bg-slate-400 ${props.custom_class}`"><slot/></button>
     <button @click="emit('click_fn')" v-if="props.button_type === 'error'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-1' } transition font-bold text-white bg-red-500 rounded-md hover:bg-red-400 ${props.custom_class}`"><slot/></button>
     <button v-if="props.button_type === 'loading'" :type="props.type" :class="`w-full ${props.size === 'normal' ? 'p-2' : 'p-1' } transition font-bold text-white bg-slate-500 rounded-md hover:bg-slate-400 ${props.custom_class}`">

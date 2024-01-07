@@ -9,8 +9,8 @@
         }
     })
 
-    watch(() => props.isLoggedIn, (value) => {
-        console.log('Is logged in: ', value)
+    watch(() => {
+        console.log('Header isLoggedIn: ', props.isLoggedIn)
     })
 
     import { useAuthStore } from '@/store/auth.store'
@@ -30,9 +30,14 @@
 
 <template>
     <header class="p-10 bg-white rounded-t-3xl header flex items-center justify-between">
-        <NuxtLink to="/">
-            <h2 class="font-bold text-xl">{{ BRAND_NAME }}</h2>
-            <p class="text-slate-400">Заказ фермерских продуктов</p>
+        <NuxtLink class="flex items-center justify-normal gap-2" to="/">
+            <div>
+                <NuxtImg src="/img/logo.png" width="56" height="56"/>
+            </div>
+            <div>
+                <h2 class="font-bold text-xl">{{ BRAND_NAME }}</h2>
+                <p class="text-slate-400">Заказ фермерских продуктов</p>
+            </div>
         </NuxtLink>
         <div class="header_links flex items-center justify-start gap-8">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная"/>

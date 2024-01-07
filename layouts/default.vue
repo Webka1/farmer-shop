@@ -2,8 +2,12 @@
    import { storeToRefs } from 'pinia'
    import { useAuthStore } from '@/store/auth.store'
 
-   const authStore = useAuthStore()
-   const { authenticated } = storeToRefs(authStore)
+    const authStore = useAuthStore()
+    const { authenticated } = storeToRefs(authStore)
+
+    watch(() => {
+         console.log('Auth in layout: ', authenticated.value)
+    })
 
    const isOpenedCart = ref(false)
 

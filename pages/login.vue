@@ -13,9 +13,11 @@
     const authsStore = useAuthStore()
     const { authenticated, error, loading } = storeToRefs(authsStore)
 
-    watch(() => authenticated.value, (value) => {
-        if(value) {
-            router.push('/profile')
+    watch(() => {
+        console.log('Auth in login.vue watch: ', authenticated.value)
+
+        if (authenticated.value === true) {
+            router.push('/')
         }
     })
 
@@ -43,10 +45,6 @@
         v$.value.$validate();
         if (!v$.value.$error) {
             await authsStore.login(formData.email, formData.password)
-
-            if(authenticated.value) {
-                router.push('/profile')
-            }
         }
     }
 

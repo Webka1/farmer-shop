@@ -29,11 +29,8 @@
             <div>
                 <UIPageTitle icon="🔖">Ваши избранные товары</UIPageTitle>
             </div>
-            <div v-if="bookmarks.length > 0">
-                <Filter/>
-            </div>
         </div>
         <ItemsList v-if="bookmarks.length > 0" class="mt-8" :items="bookmarks"/>
-        <ItemsEmpty v-else>Нет избранных товаров</ItemsEmpty>
+        <ItemsEmpty image="/img/image_9.png" image_size="70" class="mt-10" title="Избранных товаров нет :(" description="Вы ничего не добавили в избранные товары" v-else/>
     </div>
 </template>
