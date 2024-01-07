@@ -43,6 +43,20 @@ export default defineEventHandler(async (event) => {
                 }
             }
 
+            if(user.is_banned) {
+                return {
+                    error: true,
+                    reason: 'Пользователь забанен'
+                }
+            } 
+            
+            if (user.is_deleted) {
+                return {
+                    error: true,
+                    reason: 'Пользователь не найден'
+                }
+            }
+
             const checkPassword = bcrypt.compareSync(body.password, user.password)
 
             if (!checkPassword) {
@@ -87,6 +101,7 @@ export default defineEventHandler(async (event) => {
                     info: error
                 }
             }
+
         } catch (error) {
             console.log(error)
 

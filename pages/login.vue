@@ -96,11 +96,11 @@
     .form-input-custom {
         border: 1px solid;
         width: 400px;
-        @apply border-slate-400 rounded-md transition outline-none p-2 hover:border-slate-500 focus:border-green-500
+        @apply border-slate-400 rounded-2xl transition outline-none p-2 hover:border-slate-500 focus:border-green-500
     }
     .form-input-error {
         border: 1px solid;
         width: 400px;
-        @apply border-red-400 rounded-md transition outline-none p-2 hover:border-red-500 focus:border-red-500
+        @apply border-red-400 rounded-2xl transition outline-none p-2 hover:border-red-500 focus:border-red-500
     }
 </style>

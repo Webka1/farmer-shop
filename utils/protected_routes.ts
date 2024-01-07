@@ -14,4 +14,6 @@ export const server_protected_routes = [
     '/api/user/bookmarks',
     '/api/user/bookmark/',
     '/api/user/bookmark',
+    '/api/user/orders/all',
+    '/api/user/orders/all/',
 ]

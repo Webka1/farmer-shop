@@ -27,8 +27,10 @@ model Users {
   banned_at         DateTime?  @db.DateTime(0)
   deleted_at        DateTime?  @db.DateTime(0)
   sessions          Sessions[]
-  // make favorited_by point to the correct model
   favorited_items   Items[]    @relation("FavoritedItems")
+  Orders            Orders[]
+  Delivery          Delivery[]
+  Cart              Cart[]
 }
 
 model Sessions {
@@ -61,8 +63,9 @@ model Items {
   deleted_at            DateTime?  @db.DateTime(0)
   item_category         Categories @relation(fields: [category_id], references: [id], onDelete: NoAction)
   category_id           Int
-  // make sure to add the relation to the user model
   favorited_by          Users[]    @relation("FavoritedItems")
+  order_items           Orders[]   @relation("OrderItems")
+  cart_items            Cart[]     @relation("CartItems")
 }
 
 model Categories {
@@ -76,4 +79,53 @@ model Categories {
   updated_at           DateTime? @updatedAt
   deleted_at           DateTime? @db.DateTime(0)
   items                Items[]
+}
+
+model Orders {
+  id                Int        @id @default(autoincrement())
+  order_number      String?
+  order_status      String?
+  order_total_price Int?
+  order_discount    Int        @default(0) // 0%
+  order_note        String?
+  is_deleted        Boolean    @default(false)
+  created_at        DateTime   @default(now())
+  updated_at        DateTime?  @updatedAt
+  deleted_at        DateTime?  @db.DateTime(0)
+  order_items       Items[]    @relation("OrderItems")
+  user              Users      @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  user_id           Int
+  delivery          Delivery[]
+}
+
+model Delivery {
+  id             Int       @id @default(autoincrement())
+  delivery_order Int
+  user           Users     @relation(fields: [customer_id], references: [id], onDelete: NoAction)
+  customer_id    Int
+  order          Orders    @relation(fields: [order_id], references: [id], onDelete: NoAction)
+  order_id       Int
+  created_at     DateTime  @default(now())
+  updated_at     DateTime? @updatedAt
+
+  user_city     String?
+  user_address  String?
+  user_floor    String? // etazh
+  user_flat     String? // kvartira
+  user_intercom String?
+  user_phone    String?
+
+  delivery_type   String?
+  delivery_note   String?
+  delivery_status String?
+  delivery_price  Int?
+}
+
+model Cart {
+  id         Int       @id @default(autoincrement())
+  cart_items Items[]   @relation("CartItems")
+  user       Users     @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  user_id    Int
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 }

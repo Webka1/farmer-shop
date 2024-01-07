@@ -43,11 +43,6 @@
         is_loading.value = false
     })
 
-    // function onSearch(input) {
-
-
-    // }
-
     const onSearch = (input) => {
         
         if(input.length > 0) {

@@ -11,6 +11,12 @@ export default defineEventHandler(async (event) => {
     const cookies = parseCookies(event)
     const token = cookies?.token
 
+    if(server_protected_routes.includes(event.path)) {
+        event.context.is_protected = true
+    } else {
+        event.context.is_protected = false
+    }
+
     if(!token) {
         event.context.user_id = 'No token | server mw'
         event.context.is_logged_in =  false
@@ -30,12 +36,6 @@ export default defineEventHandler(async (event) => {
             } else {
                 event.context.is_logged_in =  true
                 event.context.user_id = session?.user_id
-            }
-
-            if(server_protected_routes.includes(event.path)) {
-                event.context.is_protected = true
-            } else {
-                event.context.is_protected = false
             }
 
         } catch (error) {
