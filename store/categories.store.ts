@@ -13,7 +13,7 @@ export const useCategoriesStore = defineStore('categories', {
                 state.is_loading = false
             })
             // handle errors
-            if(categories.error) {
+            if (categories.error) {
                 // @ts-ignore
                 state.error = categories.reason
                 return []

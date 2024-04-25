@@ -53,9 +53,28 @@
             filtered_items.value = non_change_items.value
         }
     }
+
+    const OnFilter = (filter) => {
+
+        if (filter == 'default') {
+            filtered_items.value = non_change_items.value.sort((a, b) => {
+                return a.id - b.id
+            })
+        } else if (filter == 'price_asc') {
+            filtered_items.value = non_change_items.value.sort((a, b) => {
+                return a.item_price - b.item_price
+            })
+        } else {
+            filtered_items.value = non_change_items.value.sort((a, b) => {
+                return b.item_price - a.item_price
+            })
+        }
+        
+    }
     
 
     provide('search', onSearch)
+    provide('filter', OnFilter)
 
 </script>
 <template>

@@ -8,7 +8,7 @@ export const useBookmarksStore = defineStore('bookmarks', {
         getBookmarks: async (state) => {
             state.is_loading = true
             state.error = ''
-            const bookmarks:any = await $fetch('/api/user/bookmarks', {
+            const bookmarks:any = await $fetch('/api/user/bookmarks/bookmarks', {
                 method: 'GET',
             }).finally(() => {
                 state.is_loading = false
@@ -35,7 +35,7 @@ export const useBookmarksStore = defineStore('bookmarks', {
                 is_loading: true
             })
 
-            const response = await $fetch('/api/user/bookmark', {
+            const response = await $fetch('/api/user/bookmarks/bookmark', {
                 method: 'POST',
                 body: {
                     id: item_id,
@@ -65,7 +65,7 @@ export const useBookmarksStore = defineStore('bookmarks', {
                 is_loading: true
             })
 
-            const response = await $fetch('/api/user/bookmark', {
+            const response = await $fetch('/api/user/bookmarks/bookmark', {
                 method: 'POST',
                 body: {
                     id: item_id,

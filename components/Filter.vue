@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center gap-4">
-        <UISelect :options="filters" />
+        <UISelect @change="(e) => { filter(e.target.value) }" :options="filters" />
         <UIInput @input="(e) => { search(e.target.value) }" input_type="text" input_name="search" input_placeholder="Поиск по товарам" />
     </div>
 </template>
@@ -22,6 +22,7 @@
     ]
 
     const search = inject('search')
+    const filter = inject('filter')
     
 </script>
 
