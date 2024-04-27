@@ -27,7 +27,7 @@
 
 <template>
     <div v-auto-animate class="rounded-b-3xl w-96 hover:shadow-2xl group transition-all duration-150 hover:mt-[-10px]">
-        <NuxtImg class="rounded-t-3xl" :src="props.image" height="50" loading="lazy" />
+        <NuxtImg class="rounded-t-3xl" :src="props.image" loading="lazy" />
         <div class="w-96 transition p-4 border border-b border-l border-r border-slate-300 rounded-b-3xl text-wrap">
             <p class="text-black text-xl text-wrap">
                 {{ props.title }}

@@ -33,13 +33,13 @@ const emit = defineEmits([
 
 <template>
     <header class="p-10 bg-white rounded-t-3xl header flex items-center justify-between">
-        <NuxtLink class="flex items-center justify-normal gap-2" to="/">
+        <NuxtLink class="flex items-center justify-normal gap-2 group" to="/">
             <div>
                 <NuxtImg src="/img/logo.png" width="56" height="56" />
             </div>
             <div>
-                <h2 class="font-bold text-xl">{{ BRAND_NAME }}</h2>
-                <p class="text-slate-400">Заказ фермерских продуктов</p>
+                <h2 class="group-hover:text-black font-bold text-gray-700 text-xl transition">{{ BRAND_NAME }}</h2>
+                <p class="text-slate-400 group-hover:text-green-500 transition">Заказ фермерских продуктов</p>
             </div>
         </NuxtLink>
         <div class="header_links flex items-center justify-start gap-8">

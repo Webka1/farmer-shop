@@ -20,4 +20,8 @@ export const server_protected_routes = [
     '/api/user/cart/my/',
     '/api/user/cart/add',
     '/api/user/cart/add/',
+    '/api/user/info',
+    '/api/user/info/',
+    '/api/user/change-password',
+    '/api/user/change-password/'
 ]

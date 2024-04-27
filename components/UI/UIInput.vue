@@ -4,9 +4,18 @@
         input_name: String,
         input_placeholder: String,
     })
+
+    const model = defineModel()
 </script>
 <template>
-    <input :type="props.input_type" :name="props.input_name" :placeholder="props.input_placeholder" class="form-input-custom mt-1">
+    <input 
+        :type="props.input_type" 
+        :name="props.input_name" 
+        :placeholder="props.input_placeholder" 
+        class="form-input-custom mt-1"
+
+        v-model="model"
+    />
 </template>
 <style scoped>
     .form-input-custom {

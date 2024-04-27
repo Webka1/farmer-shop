@@ -1,4 +1,4 @@
-import { required, email, helpers, minLength, maxLength, numeric } from '@vuelidate/validators';
+import { required, email, helpers, minLength, maxLength, numeric, sameAs, not } from '@vuelidate/validators';
 
 export const login_rules = computed(() => {
     return {
