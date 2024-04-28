@@ -80,14 +80,14 @@
 <template>
     <div>
         <div class="flex items-center justify-between">
-            <CategoryTitle>{{ display_name }}</CategoryTitle>
+            <CategoriesCategoryTitle>{{ display_name }}</CategoriesCategoryTitle>
             <Filter v-if="filter_enabled" />
         </div>
 
         <Loading v-if="is_loading" />
         <UIAlert v-else-if="error && !is_loading" class="mt-4" type="error">{{ error }}</UIAlert>
-        <ItemsList v-else-if="filtered_items.length > 0" :items="filtered_items" class="mt-8" />
-        <ItemsEmpty 
+        <ItemsItemList v-else-if="filtered_items.length > 0" :items="filtered_items" class="mt-8" />
+        <ItemsItemEmpty
             :title="props.empty_title" 
             :description="props.empty_description" 
             :image="props.empty_image" 

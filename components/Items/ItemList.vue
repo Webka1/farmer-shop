@@ -98,7 +98,7 @@ async function onClickCart(id) {
 
 <template>
     <div v-auto-animate class="flex items-center justify-normal gap-8">
-        <ItemCard v-for="item in props.items" 
+        <ItemsItemCard v-for="item in props.items" 
             
             :key="item.id" 
 

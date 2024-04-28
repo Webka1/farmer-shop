@@ -32,17 +32,17 @@ const emit = defineEmits([
 </script>
 
 <template>
-    <header class="p-10 bg-white rounded-t-3xl header flex items-center justify-between">
+    <header class="flex-wrap justify-center p-10 2xl:p-10 xl:p-10 lg:p-10 md:p-10 sm:p-10 md:flex-wrap sm:flex-wrap bg-white rounded-t-3xl header flex items-center 2xl:justify-between xl:justify-between lg:justify-between md:justify-center">
         <NuxtLink class="flex items-center justify-normal gap-2 group" to="/">
             <div>
-                <NuxtImg src="/img/logo.png" width="56" height="56" />
+                <NuxtImg class="custom-class-image" src="/img/logo.png" width="56" height="56" />
             </div>
             <div>
                 <h2 class="group-hover:text-black font-bold text-gray-700 text-xl transition">{{ BRAND_NAME }}</h2>
                 <p class="text-slate-400 group-hover:text-green-500 transition">Заказ фермерских продуктов</p>
             </div>
         </NuxtLink>
-        <div class="header_links flex items-center justify-start gap-8">
+        <div class="header_links flex items-center md:justify-center lg:justify-between justify-center sm:justify-center md:mt-4 sm:mt-4 mt-4 gap-8 flex-wrap">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная" />
             <NavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" text="0 руб." />
 
@@ -61,5 +61,13 @@ const emit = defineEmits([
 <style scoped>
 .header {
     border-bottom: 1px solid #e4e4e4;
+}
+.custom-class-image {
+    width: 56px;
+    /* устанавливаем ширину */
+    height: 56px;
+    /* устанавливаем высоту */
+    object-fit: cover;
+    /* сохраняем пропорции изображения */
 }
 </style>

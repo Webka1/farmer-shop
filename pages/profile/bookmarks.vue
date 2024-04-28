@@ -30,7 +30,7 @@
                 <UIPageTitle icon="🔖">Ваши избранные товары</UIPageTitle>
             </div>
         </div>
-        <ItemsList v-if="bookmarks.length > 0" class="mt-8" :items="bookmarks"/>
-        <ItemsEmpty button_enabled="true" image="/img/image_9.svg" image_size="70" class="mt-10" title="Избранных товаров нет :(" description="Вы ничего не добавили в избранные товары" v-else/>
+        <ItemsItemList v-if="bookmarks.length > 0" class="mt-8" :items="bookmarks"/>
+        <ItemsItemEmpty  button_enabled="true" image="/img/image_9.svg" image_size="70" class="mt-10" title="Избранных товаров нет :(" description="Вы ничего не добавили в избранные товары" v-else/>
     </div>
 </template>

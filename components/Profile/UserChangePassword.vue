@@ -8,8 +8,8 @@
             <form @submit.prevent="change_password">
                 <div class="mt-6">
                     <p class="text-slate-600">Старый пароль</p>
-                    <UIInput @change="v$.old_password.$touch" v-model="formData.old_password" input_type="password"
-                        input_name="old_password" input_placeholder="Старый пароль" :class="{
+                    <UIInput width="auto" @change="v$.old_password.$touch" v-model="formData.old_password"
+                        input_type="password" input_name="old_password" input_placeholder="Старый пароль" :class="{
                             'form-input-error mt-1': v$.old_password.$error
                         }" />
                     <div class="text-xs text-red-500 mt-1" v-for="error in v$.old_password.$errors">
@@ -18,8 +18,8 @@
                 </div>
                 <div class="mt-4">
                     <p class="text-slate-600">Новый пароль</p>
-                    <UIInput @change="v$.new_password.$touch" v-model="formData.new_password" input_type="password"
-                        input_name="new_password" input_placeholder="Новый пароль" :class="{
+                    <UIInput width="auto" @change="v$.new_password.$touch" v-model="formData.new_password"
+                        input_type="password" input_name="new_password" input_placeholder="Новый пароль" :class="{
                             'form-input-error mt-1': v$.new_password.$error
                         }" />
                     <div class="text-xs text-red-500 mt-1" v-for="error in v$.new_password.$errors">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="mt-4">
                     <p class="text-slate-600">Повторите новый пароль</p>
-                    <UIInput @change="v$.repeat_new_password.$touch" v-model="formData.repeat_new_password"
+                    <UIInput width="100%" @change="v$.repeat_new_password.$touch" v-model="formData.repeat_new_password"
                         input_type="password" input_name="repeat_new_password"
                         input_placeholder="Повторите новый пароль" :class="{
                         'form-input-error mt-1': v$.repeat_new_password.$error
@@ -39,7 +39,7 @@
                 </div>
                 <div class="mt-6">
                     <UIButton v-if="!is_loading" type="submit" button_type="success">🔐 Сохранить</UIButton>
-                    <UIButton v-else type="button" button_type="loading"/>
+                    <UIButton v-else type="button" button_type="loading" />
                 </div>
             </form>
         </div>

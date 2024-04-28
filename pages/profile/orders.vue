@@ -20,7 +20,7 @@
             <UIAlert v-else-if="error || data.error" type="error">{{ error || data.reason }}</UIAlert>
             <div v-else>
                 <div v-if="data.orders.length === 0">
-                    <ItemsEmpty 
+                    <ItemsItemEmpty 
                         class="mt-10" 
                         image="/img/image_8.svg"
                         title="У вас нет заказов"

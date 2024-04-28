@@ -12,26 +12,13 @@
 <template>
     <div>
         <UIPageTitle icon="✌️">Профиль</UIPageTitle>
-        <!-- <UILink link="/profile/sessions">Сессии</UILink> -->
-        <div class="mt-8 grid grid-cols-2 gap-8">
+        <div class="mt-8 grid xl:grid-cols-2 2xl:grid-cols-2 gap-8 md:grid-cols-1 sm:grid-cols-1 lg:grid-cols-2">
             <ProfileUserInfo />
-            <div class="shadow-lg rounded-xl p-8">
-                <p class="font-bold text-2xl">📋 Мои заказы</p>
-            </div>
+            <ProfileLink link="/profile/orders">📋 Мои заказы</ProfileLink>
             <ProfileUserChangePassword />
             <div class="grid gap-8">
-                <NuxtLink
-                    class="shadow-lg rounded-xl p-8 hover:shadow-xl transition flex items-center justify-center group"
-                    to="/profile/bookmarks">
-                    <p class="text-3xl text-slate-600 font-bold transition group-hover:text-green-500">🔖 Избранные
-                        товары</p>
-                </NuxtLink>
-                <NuxtLink
-                    class="shadow-lg rounded-xl p-8 hover:shadow-xl transition flex items-center justify-center group"
-                    to="/profile/sessions">
-                    <p class="text-3xl text-slate-600 font-bold transition group-hover:text-green-500">⚙️ Сессии
-                        пользователя</p>
-                </NuxtLink>
+                <ProfileLink link="/profile/bookmarks">🔖 Избранные товары</ProfileLink>
+                <ProfileLink link="/profile/sessions">⚙️ Сессии пользователя</ProfileLink>
             </div>
         </div>
     </div>

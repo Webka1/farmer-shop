@@ -53,8 +53,8 @@
         <div v-else>
             <UIAlert v-if="error || data.error" class="mt-4" type="error">{{ data.reason }}</UIAlert>
             <div v-else>
-                <ItemsList class="mt-8" v-if="filtered_items.length > 0" :items="filtered_items" />
-                <ItemsEmpty v-else-if="filtered_items.length < 1" title="Здесь ничего нет :("
+                <ItemsItemList class="mt-8" v-if="filtered_items.length > 0" :items="filtered_items" />
+                <ItemsItemEmpty v-else-if="filtered_items.length < 1" title="Здесь ничего нет :("
                     description="Товаров по вашему запросу не найдено" />
             </div>
         </div>
