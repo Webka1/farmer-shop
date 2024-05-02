@@ -14,11 +14,15 @@ import { stringifyQuery } from 'vue-router';
     })
 </script>
 <template>
-    <div v-if="type === 'error'" :class="`p-4 text-slate-100 rounded-xl font-semibold bg-red-500 ${props.custom_class} custom_alert`">
-        <p><slot/></p>
-    </div>
-    <div v-else="type === 'default'" :class="`p-4 text-slate-100 rounded-xl bg-slate-500 ${props.custom_class} custom_alert`">
-        <p><span class="font-bold">Инфо: </span><slot/></p>
+    <div 
+        class="p-4 text-slate-100 rounded-xl font-semibold custom_alert"
+        :class="{
+            'bg-red-500': type === 'error',
+            'bg-slate-500':  type === 'default',
+            'bg-green-500': type === 'success'
+        }, custom_class"
+    >
+        <slot/>
     </div>
 </template>
 <style scoped>

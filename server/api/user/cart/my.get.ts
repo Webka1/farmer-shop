@@ -1,44 +1,27 @@
 import prisma from '@/utils/prisma'
+import { getCartItems } from '~/utils/queries'
 
 export default defineEventHandler( async (event) => {
     if(event.context.is_protected && event.context.is_logged_in) {
         if (event.context.user_id) {
 
-            const cartItems = await prisma.cart.findMany({
-                where: {
-                    user_id: event.context.user_id
-                },
-                include: {
-                    cart_items: {
-                        where: {
-                            is_deleted: false,
-                        }
-                    }
-                }
-            })
 
-            if (cartItems.length > 0) {
-                const items = cartItems[0].cart_items.map((item) => {
-                    if (item.item_stock && item.item_stock <= 1) {
-                        return {
-                            ...item,
-                            in_stock: true
-                        }
-                    }   
-                })
+            const cart = await getCartItems(event.context.user_id) 
 
+            // @ts-ignore
+            if (cart.error) {
                 return {
-                    error: false,
-                    items
+                    error: true,
+                    // @ts-ignore
+                    reason: cart.reason
                 }
             } else {
                 return {
-                    error: true,
-                    reason: 'Товаров нет в корзине :(',
-                    items: []
+                    error: false,
+                    cart_items: cart.items,
+                    totalSum: cart.totalSum
                 }
             }
-            
         } else {
             return {
                 error: true,

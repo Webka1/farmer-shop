@@ -22,11 +22,12 @@
 </script>
 
 <template>
-    <CartDrawer v-if="isOpenedCart"/>
+    <!-- <CartDrawer v-if="isOpenedCart"/> -->
+    <CartDrawer :isLoggedIn="authenticated" v-if="isOpenedCart" />
     <div class="main-content xl:p-20 2xl:p-20 lg:p-20 md:p-10 sm:p-5 p-5 bg-[#f7fde8]">
-        <Header @toggleCart="toggleCart" :isLoggedIn="authenticated"/>
+        <Header @toggleCart="toggleCart" :isLoggedIn="authenticated" />
         <div class="bg-white p-5 rounded-b-3xl md:p-5 lg:p-10">
-            <slot/>
+            <slot />
         </div>
     </div>
 </template>

@@ -65,7 +65,8 @@ model Items {
   category_id           Int
   favorited_by          Users[]    @relation("FavoritedItems")
   order_items           Orders[]   @relation("OrderItems")
-  cart_items            Cart[]     @relation("CartItems")
+  // cart_items            Cart[]     @relation("CartItems")
+  Cart                  Cart[]
 }
 
 model Categories {
@@ -123,8 +124,10 @@ model Delivery {
 
 model Cart {
   id         Int       @id @default(autoincrement())
-  cart_items Items[]   @relation("CartItems")
+  cart_item  Items     @relation(fields: [item_id], references: [id], onDelete: NoAction)
+  quantity   Int
   user       Users     @relation(fields: [user_id], references: [id], onDelete: NoAction)
+  item_id    Int
   user_id    Int
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt

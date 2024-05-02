@@ -1,38 +1,51 @@
 <script setup>
-import { BRAND_NAME } from '@/app.constants'
-import NavLink from './UI/NavLink.vue';
+    import { BRAND_NAME } from '@/app.constants'
+    import NavLink from './UI/NavLink.vue';
 
-const props = defineProps({
-    isLoggedIn: {
-        type: Boolean,
-        default: false
+    const props = defineProps({
+        isLoggedIn: {
+            type: Boolean,
+            default: false
+        }
+    })
+
+    import { useAuthStore } from '@/store/auth.store'
+    import { useCartStore } from '~/store/cart.store';
+    const cartStore = useCartStore()
+
+    const userIsLoggedIn = ref(props.isLoggedIn)
+
+    watchEffect(async () => {
+        userIsLoggedIn.value = props.isLoggedIn
+
+        if (userIsLoggedIn) {
+            // await cartStore.getCartItems
+            console.log('Logged in')
+
+            cartStore.getCartItems
+        }
+    })
+
+
+    const { logUserOut } = useAuthStore()
+    const router = useRouter()
+    async function logout() {
+        logUserOut()
+
+        router.push('/login')
     }
-})
 
-import { useAuthStore } from '@/store/auth.store'
+    const emit = defineEmits([
+        'toggleCart'
+    ])
 
-const userIsLoggedIn = ref(props.isLoggedIn)
+    const { totalSum } = storeToRefs(cartStore)
 
-watchEffect(async () => {
-    userIsLoggedIn.value = props.isLoggedIn
-})
-
-
-const { logUserOut } = useAuthStore()
-const router = useRouter()
-async function logout() {
-    logUserOut()
-
-    router.push('/login')
-}
-
-const emit = defineEmits([
-    'toggleCart'
-])
 </script>
 
 <template>
-    <header class="flex-wrap justify-center p-10 2xl:p-10 xl:p-10 lg:p-10 md:p-10 sm:p-10 md:flex-wrap sm:flex-wrap bg-white rounded-t-3xl header flex items-center 2xl:justify-between xl:justify-between lg:justify-between md:justify-center">
+    <header
+        class="flex-wrap justify-center p-10 2xl:p-10 xl:p-10 lg:p-10 md:p-10 sm:p-10 md:flex-wrap sm:flex-wrap bg-white rounded-t-3xl header flex items-center 2xl:justify-between xl:justify-between lg:justify-between md:justify-center">
         <NuxtLink class="flex items-center justify-normal gap-2 group" to="/">
             <div>
                 <NuxtImg class="custom-class-image" src="/img/logo.png" width="56" height="56" />
@@ -42,9 +55,13 @@ const emit = defineEmits([
                 <p class="text-slate-400 group-hover:text-green-500 transition">Заказ фермерских продуктов</p>
             </div>
         </NuxtLink>
-        <div class="header_links flex items-center md:justify-center lg:justify-between justify-center sm:justify-center md:mt-4 sm:mt-4 mt-4 gap-8 flex-wrap">
+        <div
+            class="header_links flex items-center md:justify-center lg:justify-between justify-center sm:justify-center md:mt-4 sm:mt-4 mt-4 gap-8 flex-wrap">
             <NavLink link="/" icon="solar:home-2-outline" text="Главная" />
-            <NavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" text="0 руб." />
+            <NavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" :text="userIsLoggedIn ? totalSum.toLocaleString('ru-RU', {
+                    style: 'currency',
+                    currency: 'RUB'
+                }) : '0 руб.'" />
 
             <NavLink v-if="userIsLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear"
                 text="Заказы" />

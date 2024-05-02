@@ -18,7 +18,18 @@
 </script>
 <template>
     <NuxtLink :to="props.link">
-        <p v-if="props.type === 'normal'" :class="`w-fit transition text-slate-400 hover:text-slate-500 hover:underline ${props.bold ? 'font-bold' : 'font-normal'}`"><slot/></p>
-        <p v-if="props.type === 'error'" :class="`w-fit transition text-red-400 hover:text-red-500 hover:underline ${props.bold ? 'font-bold' : 'font-normal'}`"><slot/></p>
+        <p
+            class="w-fit transition hover:underline"
+            :class="{
+                'text-slate-400 hover:text-slate-500': type === 'normal',
+                'text-red-400 hover:text-red-500': type === 'error',
+                'text-green-400 hover:text-green-500':type === 'success',
+
+                'font-bold': bold,
+                'font-normal': !bold
+            }"
+        >
+            <slot/>
+        </p>
     </NuxtLink>
 </template>

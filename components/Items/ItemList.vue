@@ -1,99 +1,78 @@
 <script setup>
 
-import { storeToRefs } from 'pinia';
-import { useBookmarksStore } from '~/store/bookmarks.store';
-import { useCartStore } from '~/store/cart.store';
+    import { storeToRefs } from 'pinia';
+    import { useBookmarksStore } from '~/store/bookmarks.store';
+    import { useCartStore } from '~/store/cart.store';
 
-const bookmarksStore = useBookmarksStore()
-const { bookmarks, is_loading, error } = storeToRefs(bookmarksStore)
+    const bookmarksStore = useBookmarksStore()
+    const { bookmarks, is_loading, error } = storeToRefs(bookmarksStore)
 
-const cartStore = useCartStore()
-const { items } = storeToRefs(cartStore)
+    const cartStore = useCartStore()
+    const { items:cart_items, is_loading:cart_loading } = storeToRefs(cartStore)
 
-const props = defineProps({
-    items: {
-        type: Array,
-        default: []
-    }
-})
-
-const isFavroiteLoading = ref(false)
-async function onClickFavorite(id, state) {
-    isFavroiteLoading.value = true
-
-    console.log(`Item id: ${id} | Is favorited: ${state}`)
-
-    if (state == false) {
-        await useAsyncData('addBookmarks', async () => {
-            await bookmarksStore.addToBookmark(id)
-        }).then(() => {
-            bookmarks.value = bookmarks.value.map(item => {
-                if (item.id === id) {
-                    item.isFavorite = !item.isFavorite
-                }
-                return item
-            })
-
-            props.items.map(item => {
-                if (item.id === id) {
-                    item.isFavorite = !item.isFavorite
-                }
-
-                return item
-            })
-        }).finally(() => {
-            isFavroiteLoading.value = false
-        })
-    } else {
-        await useAsyncData('removeBookmarks', async () => {
-            await bookmarksStore.removeFromBookmarks(id)
-        }).then(() => {
-            bookmarks.value = bookmarks.value.map(item => {
-                if (item.id === id) {
-                    item.isFavorite = !item.isFavorite
-                }
-                return item
-            })
-
-            props.items.map(item => {
-                if (item.id === id) {
-                    item.isFavorite = !item.isFavorite
-                }
-
-                return item
-            })
-        }).finally(() => {
-            isFavroiteLoading.value = false
-        })
-    }
-}
-
-
-const isCartLoading = ref(false)
-async function onClickCart(id) {
-    console.log(`Item id: ${id}`)
-
-    await useAsyncData('addToCart', async () => {
-        await cartStore.addToCart(id)
-    }).then(() => {
-        items.value = items.value.map(item => {
-            if (item.id === id) {
-                item.isAdded = !item.isAdded
-            }
-            return item
-        })
-
-        props.items.map(item => {
-            if (item.id === id) {
-                item.isAdded = !item.isAdded
-            }
-
-            return item
-        })
-    }).finally(() => {
-        isCartLoading.value = false
+    const props = defineProps({
+        items: {
+            type: Array,
+            default: []
+        }
     })
-}
+
+    const isFavroiteLoading = ref(false)
+    async function onClickFavorite(id, state) {
+        isFavroiteLoading.value = true
+
+        console.log(`Item id: ${id} | Is favorited: ${state}`)
+
+        if (state == false) {
+            await useAsyncData('addBookmarks', async () => {
+                await bookmarksStore.addToBookmark(id)
+            }).then(() => {
+                bookmarks.value = bookmarks.value.map(item => {
+                    if (item.id === id) {
+                        item.isFavorite = !item.isFavorite
+                    }
+                    return item
+                })
+
+                props.items.map(item => {
+                    if (item.id === id) {
+                        item.isFavorite = !item.isFavorite
+                    }
+
+                    return item
+                })
+            }).finally(() => {
+                isFavroiteLoading.value = false
+            })
+        } else {
+            await useAsyncData('removeBookmarks', async () => {
+                await bookmarksStore.removeFromBookmarks(id)
+            }).then(() => {
+                bookmarks.value = bookmarks.value.map(item => {
+                    if (item.id === id) {
+                        item.isFavorite = !item.isFavorite
+                    }
+                    return item
+                })
+
+                props.items.map(item => {
+                    if (item.id === id) {
+                        item.isFavorite = !item.isFavorite
+                    }
+
+                    return item
+                })
+            }).finally(() => {
+                isFavroiteLoading.value = false
+            })
+        }
+    }
+
+    async function onClickCart(id) {
+        const { addToCart } = useCartStore()
+
+        addToCart(id)
+    }
 </script>
 
 <template>
@@ -110,8 +89,9 @@ async function onClickCart(id) {
             :itemDiscount="item.item_discount"
 
             :isFavorite="item.isFavorite" 
-            :isAdded="item.isAdded"
+            :isAdded="cart_items.some((items) => items.id == item.id)"
             :isFavroiteLoadingProp="isFavroiteLoading" 
+            :isCartLoadingProp="cart_loading"
             
             @clickFavorite="onClickFavorite(item.id, item.isFavorite)"
             @clickAdd="onClickCart(item.id)" />
