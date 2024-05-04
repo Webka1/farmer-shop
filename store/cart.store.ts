@@ -100,36 +100,5 @@ export const useCartStore = defineStore('cart', {
                 })
             }
         },
-
-        // async removeFromBookmarks(item_id: number) {
-        //     this.$patch({
-        //         error: '',
-        //         is_loading: true
-        //     })
-
-        //     const response = await $fetch('/api/user/bookmarks/bookmark', {
-        //         method: 'POST',
-        //         body: {
-        //             id: item_id,
-        //             action: 'remove'
-        //         }
-        //     }).finally(() => {
-        //         this.$patch({
-        //             is_loading: false
-        //         })
-        //     })
-
-        //     if(response.error) {
-        //         this.$patch({
-        //             error: response.reason
-        //         })
-        //     } else {
-        //         this.$patch({
-        //             bookmarks: this.bookmarks.filter((bookmark: any) => {
-        //                 return bookmark.id !== item_id
-        //             })
-        //         })
-        //     }
-        // },
     }
 })

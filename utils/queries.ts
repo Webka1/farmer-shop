@@ -20,7 +20,15 @@ export const getCartItems = async (user_id: number) => {
 
     const totalSum = items.map((item) => {
         // @ts-ignore
-        return item.quantity * item.item_price
+        // return item.quantity * item.item_price
+
+        if (item.item_is_sale) {
+            // @ts-ignore
+            return Math.floor(item.quantity * Math.floor(item.item_price - ((item.item_price * item.item_discount) / 100))) 
+        } else {
+            // @ts-ignore
+            return item.quantity * item.item_price
+        }
     }).reduce((totalPrice, singleItemPrice) => totalPrice + singleItemPrice, 0);
 
     if (!getCart) {
@@ -35,25 +43,3 @@ export const getCartItems = async (user_id: number) => {
         }
     }
 }
-
-// export getCartItems = await prisma.cart.findMany({
-//                 where: {
-//                     user_id: event.context.user_id
-//                 },
-//                 select: {
-//                     quantity: true,
-//                     cart_item: true
-//                 },
-//             })
-
-//             const items = cartItems.map((item) => {
-//                 return {
-//                     ...item.cart_item,
-//                     quantity: item.quantity
-//                 }
-//             })
-
-//             return {
-//                 error: false,
-//                 cart_items: items
-//             }

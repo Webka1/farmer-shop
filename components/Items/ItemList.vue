@@ -76,7 +76,7 @@
 </script>
 
 <template>
-    <div v-auto-animate class="flex items-center justify-normal gap-8">
+    <div v-auto-animate class="flex items-center justify-self-stretch flex-wrap gap-8">
         <ItemsItemCard v-for="item in props.items" 
             
             :key="item.id" 
