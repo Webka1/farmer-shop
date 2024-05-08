@@ -14,4 +14,21 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+   hooks: {
+       "vite:extendConfig": (config, { isClient, isServer }) => {
+          if (isClient) {
+            // @ts-ignore
+             config.vue =   "vue/dist/vue.esm-bundler";           
+          }
+       },
+    },
+ vite:{      
+         vue: {
+             script: {
+                 defineModel: true,
+                 propsDestructure: true                 
+             }
+         }
+     
+   }
 })
