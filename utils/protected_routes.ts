@@ -2,7 +2,8 @@ export const client_protected_routes = [
     'profile', // profile
     'profile-sessions', // profile/sessions
     'profile-bookmarks', // profile/bookmarks
-    'profile-orders' // profile/orders
+    'profile-orders', // profile/orders
+    'placeorder'
 ]
 
 export const server_protected_routes = [

@@ -47,7 +47,7 @@
     <div>
         <div class="flex items-center justify-between">
             <UIPageTitle icon="📦">{{ data.category_name }}</UIPageTitle>
-            <Filter />
+            <ItemsFilter />
         </div>
         <Loading icon="🔎" v-if="pending" />
         <div v-else>

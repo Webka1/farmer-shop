@@ -10,13 +10,10 @@
     const cartStore = useCartStore()
     const { items, error, totalSum } = storeToRefs(cartStore)
 
-    // if(!items.value.items) {
-    //     await cartStore.getCartItems
-    // }
-
     if(error.value) {
         console.log('Error from cart: ', error)
     }
+    
 </script>
 <template>
     <div>
@@ -57,7 +54,9 @@
                     </p>
                 </div>
 
-                <UIButton class="mt-4" button_type="success">Перейти к оформлению заказа</UIButton>
+                <NuxtLink to="/placeorder">
+                    <UIButton @click_fn="toggleCart" size="large" class="mt-4" button_type="success">Перейти к оформлению заказа</UIButton>
+                </NuxtLink>
             </div>
         </div>
     </div>

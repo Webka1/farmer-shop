@@ -81,7 +81,7 @@
     <div>
         <div class="flex items-center justify-between">
             <CategoriesCategoryTitle>{{ display_name }}</CategoriesCategoryTitle>
-            <Filter v-if="filter_enabled" />
+            <ItemsFilter v-if="filter_enabled" />
         </div>
 
         <Loading v-if="is_loading" />
