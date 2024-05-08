@@ -1,6 +1,7 @@
 <script setup>
    import { storeToRefs } from 'pinia'
-   import { useAuthStore } from '@/store/auth.store'
+import { useAuthStore } from '@/store/auth.store'
+   import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 
     const authStore = useAuthStore()
     const { authenticated } = storeToRefs(authStore)

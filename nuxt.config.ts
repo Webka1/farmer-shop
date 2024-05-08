@@ -17,7 +17,7 @@ export default defineNuxtConfig({
    hooks: {
        "vite:extendConfig": (config, { isClient, isServer }) => {
           if (isClient) {
-            // @ts-ignore
+            // @ts-ignore 
              config.vue =   "vue/dist/vue.esm-bundler";           
           }
        },

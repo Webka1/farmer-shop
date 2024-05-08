@@ -28,6 +28,7 @@
     "@prisma/extension-accelerate": "^0.6.2",
     "@tanstack/vue-query": "^5.14.4",
     "@types/bcryptjs": "^2.4.6",
+    "@vercel/speed-insights": "^1.0.10",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "bcryptjs": "^2.4.3",
