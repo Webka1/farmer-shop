@@ -7,10 +7,15 @@
             type: String,
             required: false,
             default: '400px'
-        }
+        },
+        modelValue: String,
     })
 
-    const model = defineModel()
+    const emit = defineEmits(['update:modelValue'])
+
+    function updateValue(value) {
+        emit('update:modelValue', value)
+    }
 </script>
 <template>
     <input 
@@ -21,7 +26,7 @@
 
         :style="{ width: props.width }"
 
-        v-model="model"
+        v-on:input="updateValue($event.target.value)"
     />
 </template>
 <style scoped>
