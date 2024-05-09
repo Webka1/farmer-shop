@@ -57,20 +57,20 @@
         </NuxtLink>
         <div
             class="header_links flex items-center md:justify-center lg:justify-between justify-center sm:justify-center md:mt-4 sm:mt-4 mt-4 gap-8 flex-wrap">
-            <NavLink link="/" icon="solar:home-2-outline" text="Главная" />
-            <NavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" :text="userIsLoggedIn ? totalSum.toLocaleString('ru-RU', {
+            <UINavLink link="/" icon="solar:home-2-outline" text="Главная" />
+            <UINavLink @click="emit('toggleCart')" link="" icon="solar:cart-large-2-linear" :text="userIsLoggedIn ? totalSum.toLocaleString('ru-RU', {
                     style: 'currency',
                     currency: 'RUB'
                 }) : '0 руб.'" />
 
-            <NavLink v-if="userIsLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear"
+            <UINavLink v-if="userIsLoggedIn" link="/profile/orders" icon="solar:checklist-minimalistic-linear"
                 text="Заказы" />
-            <NavLink v-if="userIsLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Избранное" />
-            <NavLink v-if="userIsLoggedIn" link="/profile/" icon="solar:user-circle-linear" text="Профиль" />
-            <NavLink v-if="userIsLoggedIn" :onClick="logout" link="#" icon="solar:logout-3-linear" text="Выйти"
+            <UINavLink v-if="userIsLoggedIn" link="/profile/bookmarks" icon="solar:bookmark-linear" text="Избранное" />
+            <UINavLink v-if="userIsLoggedIn" link="/profile/" icon="solar:user-circle-linear" text="Профиль" />
+            <UINavLink v-if="userIsLoggedIn" :onClick="logout" link="#" icon="solar:logout-3-linear" text="Выйти"
                 color="text-red-500" hover="text-red-400" />
 
-            <NavLink v-if="!userIsLoggedIn" link="/login" icon="solar:login-3-outline" text="Войти" />
+            <UINavLink v-if="!userIsLoggedIn" link="/login" icon="solar:login-3-outline" text="Войти" />
         </div>
     </header>
 </template>
