@@ -10,6 +10,10 @@
     const cartStore = useCartStore()
     const { items, error, totalSum } = storeToRefs(cartStore)
 
+    if(items.value.length < 1) {
+        cartStore.getCartItems
+    }
+
     if(error.value) {
         console.log('Error from cart: ', error)
     }

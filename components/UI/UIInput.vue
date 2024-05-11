@@ -27,6 +27,7 @@
         :style="{ width: props.width }"
 
         v-on:input="updateValue($event.target.value)"
+        :value="modelValue"
     />
 </template>
 <style scoped>

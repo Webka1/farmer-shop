@@ -13,7 +13,7 @@
     const authsStore = useAuthStore()
     const { authenticated, error, loading } = storeToRefs(authsStore)
 
-    watch(() => {
+    watchEffect(() => {
         console.log('Auth in login.vue watch: ', authenticated.value)
 
         if (authenticated.value === true) {
