@@ -23,7 +23,6 @@ import { useAuthStore } from '@/store/auth.store'
 </script>
 
 <template>
-    <!-- <CartDrawer v-if="isOpenedCart"/> -->
     <CartDrawer :isLoggedIn="authenticated" v-if="isOpenedCart" />
     <div class="main-content xl:p-20 2xl:p-20 lg:p-20 md:p-10 sm:p-5 p-5 bg-[#f7fde8]">
         <Header @toggleCart="toggleCart" :isLoggedIn="authenticated" />

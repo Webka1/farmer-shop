@@ -40,6 +40,7 @@
     ])
 
     const { totalSum } = storeToRefs(cartStore)
+    
 
 </script>
 

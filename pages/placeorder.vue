@@ -1,7 +1,7 @@
 <script setup>
 
-    const { data: user_data, error: user_error, pending } = await useFetch('/api/user/info')
-
+const { data: user_data, error: user_error, pending } = await useFetch('/api/user/info')
+import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
 
     const formValues = ref({
         firstname: '',
@@ -40,6 +40,13 @@
     import { useCartStore } from '~/store/cart.store';
     const cartStore = useCartStore()
     const { totalSum } = storeToRefs(cartStore)
+
+    useSeoMeta({
+        title: `${BRAND_NAME} - Оформление заказа`,
+        ogTitle: `${BRAND_NAME} - Оформление заказа`,
+        description: SITE_DESCRIPTION,
+        ogDescription: SITE_DESCRIPTION
+    })
 </script>
 <template>
     <div>

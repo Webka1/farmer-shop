@@ -6,10 +6,6 @@ import bcrypt from 'bcryptjs'
 
 export default defineEventHandler(async (event) => {
     if(event.context.is_protected) {
-        // return {
-        //     error: true,
-        //     reason: 'Неавторизован'
-        // }
         const body = await readBody(event)
 
         if (!event.context.user_id) {

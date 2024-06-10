@@ -1,6 +1,8 @@
 import prisma from '@/utils/prisma'
 
+// функция заверешния сессии
 export async function finishSession(token: string) {
+    // получение текушей сессии, выборка по JWT токену
     const current_session = await prisma.sessions.findFirst({
         where: {
             jwt: token
@@ -10,7 +12,7 @@ export async function finishSession(token: string) {
         }
     })
 
-
+    // завершение сессии 
     const finish_session = await prisma.sessions.update({
         data: {
             is_active: false,
@@ -21,6 +23,7 @@ export async function finishSession(token: string) {
         }
     })
 
+    // проверка на завершение сессии
     if(finish_session) {
         return {
             error: false,
