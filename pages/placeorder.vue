@@ -47,6 +47,21 @@ import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
         description: SITE_DESCRIPTION,
         ogDescription: SITE_DESCRIPTION
     })
+
+    const submitOrder = async () => {
+        // await $fetch('/api/orders/create', {
+        //     method: 'POST',
+        //     body: {
+        //         user: formValues.value,
+        //         delivery: deliveryAdress.value,
+        //         items: cartStore.items,
+        //         totalSum
+        //     }
+        // }).then((response) => {
+        //     console.log(response)
+        // })
+        alert('Заказ размещен. Оператор позвонит для подтверждения заказа.')
+    }
 </script>
 <template>
     <div>
@@ -134,7 +149,7 @@ import { BRAND_NAME, SITE_DESCRIPTION } from '~/app.constants';
                         currency: 'RUB'
                     }) }}</span></p>
                 </div>
-                <UIButton class="mt-6" button_type="success">Разместить заказ</UIButton>
+                <UIButton @click_fn="submitOrder" class="mt-6" button_type="success">Разместить заказ</UIButton>
             </div>
         </div>
     </div>

@@ -24,5 +24,7 @@ export const server_protected_routes = [
     '/api/user/info',
     '/api/user/info/',
     '/api/user/change-password',
-    '/api/user/change-password/'
+    '/api/user/change-password/',
+    '/api/orders/create',
+    '/api/orders/create/'
 ]

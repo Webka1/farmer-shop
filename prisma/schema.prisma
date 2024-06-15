@@ -97,6 +97,7 @@ model Orders {
   order_items       Items[]   @relation("OrderItems")
   user              Users     @relation(fields: [user_id], references: [id], onDelete: NoAction)
   user_id           Int
+  delivery_adress   String
 }
 
 model Cart {

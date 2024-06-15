@@ -23,8 +23,8 @@
                     <ItemsItemEmpty 
                         class="mt-10" 
                         image="/img/image_8.svg"
-                        title="У вас нет заказов"
-                        description="Оформите хотя бы один заказ и он появится здесь"
+                        title="Страница в разработке"
+                        description="Возможность просмотра всех ваших заказов будет позже :)"
                         button_enabled="true"
                     />
                 </div>
