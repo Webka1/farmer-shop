@@ -79,7 +79,7 @@
                     </UIButton>
                     <UIButton v-else type="button" button_type="loading"/>
                 </div>
-                <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center flex-wrap gap-x-32 justify-between mt-4">
                     <UILink type="error" link="/">Забыли пароль?</UILink>
                     <UILink :bold="true" link="/register">Зарегистрироваться</UILink>
                 </div>
@@ -95,12 +95,14 @@
     }
     .form-input-custom {
         border: 1px solid;
-        width: 400px;
+        max-width: 400px;
+        width: 100%;
         @apply border-slate-400 rounded-2xl transition outline-none p-2 hover:border-slate-500 focus:border-green-500
     }
     .form-input-error {
         border: 1px solid;
-        width: 400px;
+        max-width: 400px;
+        width: 100%;
         @apply border-red-400 rounded-2xl transition outline-none p-2 hover:border-red-500 focus:border-red-500
     }
 </style>

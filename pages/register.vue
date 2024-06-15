@@ -72,7 +72,7 @@
 <!-- TODO: ANIMATIONS, SUCCESS AUTH ALERT, REDIRECT TO LOGIN AFTER REGISTRATION -->
 <template>
    <div>
-        <div class="rounded-3xl login-form p-10">
+        <div class="rounded-3xl login-form p-10 sm:p-1">
             <h1 class="font-black text-3xl">Зарегистрироваться</h1>
             <UIAlert v-if="is_error" class="mt-4" type="error">{{ is_error }}</UIAlert>
             <form @submit.prevent="register">
@@ -94,7 +94,7 @@
                         {{ error.$message }}
                     </div>
                 </div>
-                <div class="flex items-center justify-between mt-4 gap-4">
+                <div class="flex items-center flex-wrap justify-between mt-4 gap-4">
                     <div class="flex flex-col">
                         <label for="password">Имя: </label>
                         <input @change="v$.first_name.$touch" v-model="formData.first_name" type="text" name="password" placeholder="Иван" class="form-input-custom mt-1" :class="{
@@ -144,11 +144,14 @@
     }
     .form-input-custom {
         border: 1px solid;
+        max-width: 500px;
+        width: 100%;
         @apply border-slate-400 rounded-2xl w-full transition outline-none p-2 hover:border-slate-500 focus:border-green-500
     }
     .form-input-error {
         border: 1px solid;
-        width: 400px;
+        max-width: 500px;
+        width: 100%;
         @apply border-red-400 rounded-2xl w-full transition outline-none p-2 hover:border-red-500 focus:border-red-500
     }
 </style>

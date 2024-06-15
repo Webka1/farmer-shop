@@ -45,7 +45,7 @@
 </script>
 <template>
     <div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center flex-wrap justify-between">
             <UIPageTitle icon="📦">{{ data.category_name }}</UIPageTitle>
             <ItemsFilter />
         </div>

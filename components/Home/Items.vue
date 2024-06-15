@@ -79,7 +79,7 @@
 </script>
 <template>
     <div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center flex-wrap justify-between">
             <CategoriesCategoryTitle>{{ display_name }}</CategoriesCategoryTitle>
             <ItemsFilter v-if="filter_enabled" />
         </div>

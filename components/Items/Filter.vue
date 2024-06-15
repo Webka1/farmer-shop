@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center gap-4">
         <UISelect @change="(e) => { filter(e.target.value) }" :options="filters" />
-        <UIInput @input="(e) => { search(e.target.value) }" input_type="text" input_name="search" input_placeholder="Поиск по товарам" />
+        <UIInput width="100%" @input="(e) => { search(e.target.value) }" input_type="text" input_name="search" input_placeholder="Поиск по товарам" />
     </div>
 </template>
 

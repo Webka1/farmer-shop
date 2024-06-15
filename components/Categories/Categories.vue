@@ -1,10 +1,10 @@
 <template>
     <div class="mt-14">
         <CategoriesCategoryTitle>Категории товаров</CategoriesCategoryTitle>
-        <Loading v-if="is_loading"/>
+        <Loading v-if="is_loading" />
         <UIAlert v-else-if="!is_loading && error" class="mt-4" type="error">{{ error }}</UIAlert>
-        <div class="mt-8 flex items-center justify-stretch gap-2" v-else>
-            <CategoriesCategoryItem v-for="category in categories" :category="category"/>
+        <div class="mt-8 flex flex-wrap items-center justify-center auto-rows-max gap-2" v-else>
+            <CategoriesCategoryItem v-for="category in categories" :category="category" />
         </div>
     </div>
 </template>
