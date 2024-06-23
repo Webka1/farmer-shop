@@ -14,7 +14,6 @@
     <NuxtPage/>
   </NuxtLayout>
 </template>
-<!-- TODO: EBANIE ANIMACII FIX NADO -->
 <style>
   .page-enter-active,
   .page-leave-active {

@@ -39,9 +39,6 @@
     // FIELDS VALIDATE
     const v$ = useVuelidate(register_rules, formData)
 
-
-    // REGUSTER FUNCTION
-    //  TODO: 'пеенести егистраицю блять туда сюда'
     const register = async (e) => {
         v$.value.$validate();
         if (!v$.value.$error) {
@@ -69,10 +66,9 @@
     }
 
 </script>
-<!-- TODO: ANIMATIONS, SUCCESS AUTH ALERT, REDIRECT TO LOGIN AFTER REGISTRATION -->
 <template>
    <div>
-        <div class="rounded-3xl login-form p-10 sm:p-1">
+        <div class="rounded-3xl login-form p-3 lg:p-10 xl:p-10 sm:p-1">
             <h1 class="font-black text-3xl">Зарегистрироваться</h1>
             <UIAlert v-if="is_error" class="mt-4" type="error">{{ is_error }}</UIAlert>
             <form @submit.prevent="register">
