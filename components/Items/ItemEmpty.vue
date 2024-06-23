@@ -33,7 +33,7 @@
 <template>
     <div class="flex justify-center items-center" v-auto-animate>
         <div>
-            <NuxtImg class="mx-auto custom-class-image" :height="props.image_size" :src="props.image"/>
+            <NuxtImg class="mx-auto custom-class-image" :height="props.image_size || 100" :src="props.image"/>
             <h3 class="text-center text-2xl text-slate-800 font-semibold mt-4">{{ props.title }}</h3>
             <p class="text-center mt-1 tex-md text-slate-400 font-semibold">{{ props.description }}</p>
 
@@ -47,9 +47,9 @@
 </template>
 <style scoped>
     .custom-class-image {
-        width: 100;
+        width: 100px;
         /* устанавливаем ширину */
-        height: 100;
+        height: 100px;
         /* устанавливаем высоту */
         object-fit: cover;
         /* сохраняем пропорции изображения */
